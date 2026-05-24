@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BUNK Cafe Order</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root{
+  --bg:#060606;
+  --surface:#111111;
+  --accent:#ff9d00;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,0.62);
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:
+  radial-gradient(circle at top left, rgba(255,157,0,0.08), transparent 20%),
+  radial-gradient(circle at bottom right, rgba(255,157,0,0.05), transparent 25%),
+  var(--bg);
+  color:white;
+}
+
+.container{
+  width:90%;
+  max-width:1400px;
+  margin:auto;
+}
+
+/* =========================================================
+NAVBAR
+========================================================= */
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.nav-wrapper{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 0;
+}
+
+.logo{
+  font-size:2rem;
+  font-weight:800;
+  letter-spacing:6px;
+  color:var(--accent);
+}
+
+.cart-indicator{
+  background:rgba(255,157,0,0.12);
+  color:var(--accent);
+  padding:12px 20px;
+  border-radius:50px;
+  font-weight:600;
+  border:1px solid rgba(255,157,0,0.2);
+}
+
+/* =========================================================
+TOP BACK BUTTON
+========================================================= */
+
+.top-back-wrapper{
+  width:90%;
+  max-width:1400px;
+  margin:auto;
+  padding-top:25px;
+}
+
+.top-back-btn{
+  padding:14px 22px;
+  border-radius:50px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.04);
+  color:white;
+  cursor:pointer;
+  font-weight:600;
+  transition:0.3s;
+  backdrop-filter:blur(12px);
+}
+
+.top-back-btn:hover{
+  background:rgba(255,157,0,0.12);
+  color:var(--accent);
+  transform:translateX(-4px);
+}
+
+/* =========================================================
+HERO
+========================================================= */
+
+.hero{
+  padding:100px 0 60px;
+}
+
+.hero h1{
+  font-size:5rem;
+  line-height:0.9;
+  letter-spacing:-4px;
+  margin-bottom:20px;
+  
+}
+
+.hero h1 span{
+  color:var(--accent);
+}
+
+.hero p{
+  max-width:650px;
+  color:var(--muted);
+  line-height:1.9;
+}
+
+/* =========================================================
+LAYOUT
+========================================================= */
+
+.order-layout{
+  display:grid;
+  grid-template-columns:1.2fr 0.8fr;
+  gap:40px;
+  padding-bottom:80px;
+}
+
+/* =========================================================
+CART
+========================================================= */
+
+.cart-box{
+  position:sticky;
+  top:100px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:35px;
+  padding:35px;
+  height:fit-content;
+}
+
+.cart-box h2{
+  margin-bottom:25px;
+  font-size:2rem;
+}
+
+.cart-items{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  margin-bottom:30px;
+}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(255,255,255,0.04);
+  padding:16px;
+  border-radius:18px;
+}
+
+.cart-item-info h4{
+  margin-bottom:6px;
+}
+
+.cart-item-info p{
+  color:var(--muted);
+  font-size:0.9rem;
+}
+
+.remove-btn{
+  background:none;
+  border:none;
+  color:#ff5f5f;
+  cursor:pointer;
+  font-size:0.9rem;
+}
+
+.coupon-box{
+  display:flex;
+  gap:12px;
+  margin-bottom:25px;
+}
+
+.coupon-box input{
+  flex:1;
+  padding:15px;
+  border:none;
+  border-radius:14px;
+  background:rgba(255,255,255,0.05);
+  color:white;
+  outline:none;
+}
+
+.apply-btn{
+  padding:15px 18px;
+  border:none;
+  border-radius:14px;
+  background:var(--accent);
+  color:black;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.total-box{
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding-top:22px;
+}
+
+.total-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:15px;
+  color:var(--muted);
+}
+
+.grand-total{
+  font-size:1.5rem;
+  color:white;
+  font-weight:700;
+}
+
+.checkout-btn{
+  width:100%;
+  padding:18px;
+  margin-top:25px;
+  border:none;
+  border-radius:18px;
+  background:var(--accent);
+  color:black;
+  font-size:1rem;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
+  .order-layout{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .hero h1{
+    font-size:3.5rem;
+    letter-spacing:-2px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+NAVBAR
+========================================================= -->
+
+<nav>
+
+  <div class="container nav-wrapper">
+
+    <div class="logo">BUNK</div>
+
+    <div class="cart-indicator">
+      Cart Total: ₹<span id="navTotal">0</span>
+    </div>
+
+  </div>
+
+</nav>
+
+<div class="top-back-wrapper">
+
+  <button class="top-back-btn"
+  onclick="history.back()">
+
+    ← Back
+
+  </button>
+
+</div>
+
+<!-- =========================================================
+HERO
+========================================================= -->
+
+<section class="hero">
+
+  <div class="container">
+
+    <h1>
+      ORDER YOUR<br>
+      <span>FAVOURITES.</span>
+    </h1>
+
+    <p>
+      Fresh burgers, loaded pizzas, cheesy fries, and premium cafe cravings
+      crafted for unforgettable midnight vibes.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+ORDER SECTION
+========================================================= -->
+
+<section>
+
+  <div class="container order-layout">
+
+    <!-- CART -->
+    <div class="cart-box">
+
+      <h2>Your Cart</h2>
+
+      <div class="cart-items" id="cartItems">
+
+        <p style="color:rgba(255,255,255,0.5)">
+          No items added yet.
+        </p>
+
+      </div>
+
+      <!-- COUPON -->
+      <div class="coupon-box">
+
+        <input
+        type="text"
+        id="couponInput"
+        placeholder="Coupon Code">
+
+        <button class="apply-btn"
+        onclick="applyCoupon()">
+          Apply
+        </button>
+
+      </div>
+
+      <!-- TOTAL -->
+      <div class="total-box">
+
+        <div class="total-row">
+          <span>Subtotal</span>
+          <span>₹<span id="subtotal">0</span></span>
+        </div>
+
+        <div class="total-row">
+          <span>Discount</span>
+          <span>- ₹<span id="discount">0</span></span>
+        </div>
+
+        <div class="total-row grand-total">
+          <span>Total</span>
+          <span>₹<span id="total">0</span></span>
+        </div>
+
+        <button class="checkout-btn"
+        onclick="checkout()">
+          Place Order
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+  
+const savedCart =
+JSON.parse(localStorage.getItem('bunkCart')) || [];
+
+window.addEventListener('load',()=>{
+
+  savedCart.forEach(item=>{
+
+    addToCart(
+      item.name,
+      item.price
+    );
+
+  });
+
+});
+
+let cart = [];
+
+let subtotal = 0;
+let discount = 0;
+
+const cartItems = document.getElementById('cartItems');
+
+function addToCart(name, price){
+
+  subtotal += price;
+  
+  cart.push({
+  name:name,
+  price:price
+    
+  });
+
+  localStorage.setItem(
+  'bunkCart',
+  JSON.stringify(cart)
+  );
+
+  const item = document.createElement('div');
+
+  item.classList.add('cart-item');
+
+  item.innerHTML = `
+    <div class="cart-item-info">
+      <h4>${name}</h4>
+      <p>₹${price}</p>
+    </div>
+
+    <button class="remove-btn"
+    onclick="removeItem(this, ${price}, '${name}')">
+      Remove
+    </button>
+  `;
+
+  if(cartItems.innerHTML.includes('No items')){
+    cartItems.innerHTML = '';
+  }
+
+  cartItems.appendChild(item);
+
+  updateTotals();
+
+}
+
+function removeItem(btn, price, name){
+
+  subtotal -= price;
+
+  cart = cart.filter(item =>
+    item.name !== name
+  );
+
+  localStorage.setItem(
+  'bunkCart',
+  JSON.stringify(cart)
+  );
+
+  btn.parentElement.remove();
+
+  if(cartItems.children.length === 0){
+
+    cartItems.innerHTML = `
+
+      <p style="color:rgba(255,255,255,0.5)">
+        No items added yet.
+      </p>
+
+    `;
+
+  }
+
+  updateTotals();
+
+}
+
+function applyCoupon(){
+
+  const code =
+  document.getElementById('couponInput')
+  .value
+  .trim()
+  .toUpperCase();
+
+  if(code === 'BUNK20'){
+    discount = subtotal * 0.20;
+    localStorage.setItem(
+    'bunkDiscount',
+    Math.round(discount));
+    alert('Coupon Applied! 20% Discount Added.');
+  }
+  
+  else if(code === 'FLAT150'){
+
+    if(subtotal >= 499){
+
+      discount = 150;
+
+      localStorage.setItem(
+        'bunkDiscount',
+        discount
+      );
+
+      alert('Coupon Applied! ₹150 OFF Added.');
+    }
+
+    else{
+
+      alert(
+       'Minimum order amount ₹499 required for FLAT150.'
+      );
+
+    }
+
+  }
+
+  else{
+    discount = 0;
+    localStorage.setItem('bunkDiscount',0);
+    alert('Invalid Coupon Code');
+  }
+
+  updateTotals();
+
+}
+
+function updateTotals(){
+
+  document.getElementById('subtotal')
+  .innerText = subtotal;
+
+  document.getElementById('discount')
+  .innerText = Math.round(discount);
+
+  const total = subtotal - discount;
+
+  document.getElementById('total')
+  .innerText = Math.round(total);
+
+  document.getElementById('navTotal')
+  .innerText = Math.round(total);
+
+}
+
+function checkout(){
+
+  if(subtotal <= 0){
+    alert('Please add items first.');
+    return;
+  }
+
+  window.location.href = 'checkout.html';
+
+}
+
+</script>
+
+</body>
+</html>

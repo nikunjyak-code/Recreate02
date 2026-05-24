@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>BUNK Cafe</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* RESET & GLOBALS */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background:
+    radial-gradient(circle at top left, rgba(255,157,0,0.08), transparent 25%),
+    radial-gradient(circle at bottom right, rgba(255,157,0,0.05), transparent 25%),
+    #070707;
+      color: white;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1300px;
+      margin: auto;
+    }
+
+    section {
+      padding: 55px 0;
+      width: 100%;
+    }
+
+    /* TYPOGRAPHY & TITLES */
+    .section-title small {
+      color: #ff9d00;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .section-title h2{
+      font-size:4rem;
+      line-height:0.95;
+      letter-spacing:-3px;
+    }
+
+    /* BUTTONS */
+    .btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 50px;
+      padding: 15px 30px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .primary-btn{
+      background:#ff9d00;
+      color:black;
+      transition:0.3s;
+    }
+
+    .primary-btn:hover{
+      transform:translateY(-3px);
+    }
+
+    .secondary-btn {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .secondary-btn:hover {
+      border-color: #ff9d00;
+      background: rgba(255, 157, 0, 0.05);
+    }
+
+    /* NAVBAR */
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      z-index:999;
+      background-color:black;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+
+    .nav-wrapper{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:20px 0;
+    }
+
+    .logo{
+      font-size:2rem;
+      font-weight:800;
+      letter-spacing:6px;
+      color:#ff9d00;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.7);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #ff9d00;
+    }
+
+    /* Hamburger Menu Button */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1001; /* Higher than drawer to remain visible */
+    }
+
+    .menu-toggle span {
+      width: 26px;
+      height: 2px;
+      background-color: white;
+      transition: all 0.3s ease;
+    }
+
+    /* HERO MAIN SECTION */
+    .hero {
+      position: relative;
+      padding: 140px 0 70px 0;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.75;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(7,7,7,0.8), #070707);
+    }
+
+    .hero-wrapper {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    .hero-tag {
+      color: #ff9d00;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .hero-text h1{
+      font-size:6rem;
+      line-height:0.9;
+      letter-spacing:-5px;
+      margin-bottom:25px;
+    }
+
+    .hero-text h1 span {
+      color: #ff9d00;
+    }
+
+    .hero-text p{
+      max-width:650px;
+      color:rgba(255,255,255,0.62);
+      line-height:1.9;
+      font-size:1.05rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .hero-buttons .btn {
+      width: 100%;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 30px;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 25px;
+    }
+
+    .hero-stat h3 {
+      color: #ff9d00;
+      font-size: 1.8rem;
+    }
+
+    .hero-stat p {
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-card img {
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .hero-card-content {
+      padding: 25px;
+    }
+
+    .hero-card-content small {
+      color: #ff9d00;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+
+    .hero-card-content h2 {
+      margin: 10px 0;
+      font-size: 1.5rem;
+    }
+
+    .hero-card-content p {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .hero-card-content .btn {
+      width: 100%;
+    }
+
+    /* CATEGORIES GRID */
+    .category-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .category-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      height: 320px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .category-card img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    /* Scale up background image on hover */
+    .category-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .category-overlay {
+      position: absolute;
+      inset: 0;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    }
+
+    .food-tag {
+      align-self: flex-start;
+      padding: 6px 12px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      background: #ff9d00;
+      color: black;
+      font-weight: 600;
+    }
+
+    .category-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .category-bottom h3 {
+      font-size: 1.5rem;
+    }
+
+    /* ARROW INTERACTIVE ANIMATION */
+    .arrow {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ff9d00;
+      font-size: 1.3rem;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease, color 0.3s ease;
+    }
+
+    /* Animate arrow dynamically on parent hover */
+    .category-card:hover .arrow {
+      transform: rotate(45deg) scale(1.15);
+      background: #ff9d00;
+      color: black;
+    }
+
+    /* SIGNATURE SPECIALS */
+    .special-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .food-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .food-card img {
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .food-content {
+      padding: 24px;
+    }
+
+    .food-content h3 {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .food-content h3 span {
+      color: #ff9d00;
+    }
+
+    .food-content p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .food-content .btn {
+      width: 100%;
+    }
+
+    /* INTERIOR */
+    .interior-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .interior-text p {
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+
+    .interior-images {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .interior-images img {
+      border-radius: 20px;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    /* FRANCHISE BOX */
+    .franchise-box {
+      background: linear-gradient(135deg, rgba(255,157,0,0.1), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,157,0,0.15);
+      border-radius: 28px;
+      padding: 30px 20px;
+    }
+
+    .franchise-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .franchise-text p {
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 25px;
+    }
+
+    .franchise-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .mini-card {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .mini-card h4 {
+      color: #ff9d00;
+      margin-bottom: 6px;
+    }
+
+    .mini-card p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* FOOTER */
+    footer{
+  padding:70px 0 30px;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+
+.footer-wrapper{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:50px;
+}
+
+.footer-desc{
+  color:var(--muted);
+  line-height:1.8;
+  max-width:420px;
+  margin-top:15px;
+}
+
+.footer-links{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.footer-links h4{
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.footer-links a{
+  color:rgba(255,255,255,0.65);
+}
+
+.copyright{
+  margin-top:45px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  text-align:center;
+  color:rgba(255,255,255,0.45);
+  font-size:0.85rem;
+}
+
+    /* =======================================================
+      DESKTOP GRID UPGRADES (Applied on Larger Dimensions)
+      =======================================================
+    */
+    @media (min-width: 769px) {
+      .section-title h2 {
+        font-size: 2.8rem;
+      }
+
+      .hero-wrapper {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .hero-text h1 {
+        font-size: 4rem;
+      }
+
+      .hero-buttons {
+        flex-direction: row;
+      }
+
+      .hero-buttons .btn {
+        width: auto;
+      }
+
+      .category-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr 1fr;
+      }
+
+      .special-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .interior-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+      }
+
+      .interior-images {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .franchise-box {
+        padding: 60px;
+      }
+
+      .franchise-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+      }
+
+      .franchise-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-wrapper {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    /* MOBILE NAVIGATION STYLING RULES */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+      
+      .footer-wrapper{
+        grid-template-columns:1fr;
+        gap:30px;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        max-width: 320px;
+        height: 100vh;
+        background: #0b0b0b;
+        flex-direction: column;
+        padding: 120px 40px;
+        gap: 30px;
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.6);
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      /* Transform hamburger icon into an X when menu is active */
+      .menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+      .menu-toggle.active span:nth-child(2) { opacity: 0; }
+      .menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    }
+    
+    .cart-badge{
+  position:absolute;
+  top:-8px;
+  right:-8px;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:#ff3b3b;
+  color:white;
+  font-size:0.72rem;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid #060606;
+  display:none;
+}
+    
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container nav-wrapper">
+      <div class="logo">BUNK</div>
+      
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="Redesign(2.2).html">Menu</a>
+        <a href="Redesign(2.3).html">Franchise</a>
+        <a href="Redesign(2.4).html">Gallery</a>
+        <a href="Redesign(2.5).html">Contact</a>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 15px;">
+      
+        <button class="btn primary-btn" style="padding: 14px 24px; font-size: 0.85rem; font-weight:700;" onclick="window.location.href='Redesign(2.0).html'">Order Now<span class="cart-badge" id="cartBadge" style="position: relative;">0</span></button>
+        
+        <button class="menu-toggle" id="menuBtn" aria-label="Toggle Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2000&auto=format&fit=crop">
+      <div class="overlay"></div>
+    </div>
+
+    <div class="container hero-wrapper">
+      <div class="hero-text">
+        <div class="hero-tag">India's Youth Cafe</div>
+        <h1>More Than<br>A Cafe.<br><span>It's A Vibe.</span></h1>
+        <p>Experience premium fast food, aesthetic interiors, energetic ambience, and unforgettable flavors crafted for the modern youth generation.</p>
+        
+        <div class="hero-buttons">
+          <button class="btn primary-btn" onclick="window.location.href='Redesign(2.2).html'">Explore Menu</button>
+          <button class="btn secondary-btn" onclick="window.location.href='Redesign(2.3).html'">Franchise With Us</button>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <h3>50K+</h3>
+            <p>Happy Customers</p>
+          </div>
+          <div class="hero-stat">
+            <h3>25+</h3>
+            <p>Outlets</p>
+          </div>
+          <div class="hero-stat">
+            <h3>100+</h3>
+            <p>Menu Items</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1200&auto=format&fit=crop">
+        <div class="hero-card-content">
+          <small>Signature Special</small>
+          <h2>Smoky Cheese Burger</h2>
+          <p>Loaded with premium cheese, crispy layers, rich sauces, and bold cafe-style flavors crafted for ultimate cravings.</p>
+          <button class="btn primary-btn" onclick=" let cart = JSON.parse(localStorage.getItem('bunkCart')) || [];
+          cart.push({ name:'Smoky Cheese Burger', price:249 });
+          localStorage.setItem('bunkCart',JSON.stringify(cart));
+          
+          updateCartBadge();
+          
+          alert('Smoky Cheese Burger added to cart!');">Order Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-title">
+        <small>Categories</small>
+        <h2>Explore Flavours</h2>
+      </div>
+
+      <div class="category-grid">
+        <div class="category-card">
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200&auto=format&fit=crop">
+          <div class="category-overlay">
+            <div class="food-tag">Bestseller</div>
+            <div class="category-bottom">
+              <h3>Gourmet Burgers</h3>
+              <div class="arrow" onclick="window.location.href='Redesign(2.2).html?category=burgers'">↗</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="category-card">
+          <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200&auto=format&fit=crop">
+          <div class="category-overlay">
+            <div class="food-tag">Bestseller</div>
+            <div class="category-bottom">
+              <h3>Loaded Pizza</h3>
+              <div class="arrow" onclick="window.location.href='Redesign(2.2).html?category=pizza'">↗</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="category-card">
+          <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=1200&auto=format&fit=crop">
+          <div class="category-overlay">
+            <div class="food-tag">Bestseller</div>
+            <div class="category-bottom">
+              <h3>Chill Mojitos</h3>
+              <div class="arrow" onclick="window.location.href='Redesign(2.2).html?category=drinks'">↗</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-title">
+        <small>Signature Specials</small>
+        <h2>Most Loved Dishes</h2>
+      </div>
+
+      <div class="special-grid">
+        <div class="food-card">
+          <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1200&auto=format&fit=crop">
+          <div class="food-content">
+            <h3>Smoky Cheese Burger <span>₹249</span></h3>
+            <p>Crafted with rich flavors and premium ingredients for unforgettable cravings.</p>
+            <button class="btn secondary-btn" onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+            cart.push({name:'Smoky Cheese Burger',price:249});
+            localStorage.setItem('bunkCart',JSON.stringify(cart));
+            
+            updateCartBadge();
+            
+            alert('Smoky Cheese Burger added to cart!');">Order Now
+            </button>
+          </div>
+        </div>
+
+        <div class="food-card">
+          <img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?q=80&w=1200&auto=format&fit=crop">
+          <div class="food-content">
+            <h3>Loaded Farm Pizza <span>₹399</span></h3>
+            <p>Loaded with fresh toppings and cheesy goodness for pizza lovers.</p>
+            <button class="btn secondary-btn" onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+            cart.push({name:'Loaded Farm Pizza',price:399});
+            localStorage.setItem('bunkCart',JSON.stringify(cart));
+            
+            updateCartBadge();
+            
+            alert('Loaded Farm Pizza added to cart!');">Order Now
+            </button>
+          </div>
+        </div>
+
+        <div class="food-card">
+          <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=1200&auto=format&fit=crop">
+          <div class="food-content">
+            <h3>Creamy White Pasta <span>₹279</span></h3>
+            <p>Rich creamy texture blended with authentic herbs and premium sauces.</p>
+            <button class="btn secondary-btn" onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+            cart.push({name:'Creamy White Pasta',price:279});
+            localStorage.setItem('bunkCart',JSON.stringify(cart));
+            
+            updateCartBadge();
+            
+            alert('Creamy White Pasta added to cart!');">Order Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container interior-wrapper">
+      <div class="interior-text">
+        <div class="section-title">
+          <small>Cafe Experience</small>
+          <h2>Aesthetic Interiors. Youthful Energy.</h2>
+        </div>
+        <p>From neon-lit corners to cozy seating and modern cafe aesthetics, BUNK creates the perfect atmosphere for hangouts, conversations, work sessions, and unforgettable evenings.</p>
+        <button class="btn primary-btn" style="margin-top: 20px;" onclick="window.location.href='Redesign(2.4).html'">Visit Gallery</button>
+      </div>
+
+      <div class="interior-images">
+        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1200&auto=format&fit=crop">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop">
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container franchise-box">
+      <div class="franchise-wrapper">
+        <div class="franchise-text">
+          <div class="section-title">
+            <small>Franchise Opportunity</small>
+            <h2>Start Your BUNK Journey.</h2>
+          </div>
+          <p>Join one of the fastest growing youth cafe brands with complete support, branding assistance, and a modern business model.</p>
+          <button class="btn primary-btn" onclick="window.location.href='Redesign(2.3).html'">Explore Franchise</button>
+        </div>
+
+        <div class="franchise-cards">
+          <div class="mini-card">
+            <h4>Low Investment</h4>
+            <p>Affordable startup plans for ambitious entrepreneurs.</p>
+          </div>
+          <div class="mini-card">
+            <h4>Fast ROI</h4>
+            <p>Strong youth audience and growing brand value.</p>
+          </div>
+          <div class="mini-card">
+            <h4>Full Support</h4>
+            <p>Marketing and staff guidance included.</p>
+          </div>
+          <div class="mini-card">
+            <h4>Modern Brand</h4>
+            <p>Premium identity built for Gen Z attraction.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+
+    <div class="container footer-wrapper">
+
+      <div>
+
+        <div class="logo">BUNK</div>
+
+        <p class="footer-desc">
+        Premium youth cafe experience built for unforgettable cravings,
+        aesthetic vibes, and modern urban culture.
+        </p>
+
+      </div>
+
+      <div class="footer-links">
+
+        <h4>Quick Links</h4>
+
+        <a href="#">Home</a>
+        <a href="#">Menu</a>
+        <a href="#">Franchise</a>
+        <a href="#">Gallery</a>
+
+      </div>
+
+      <div class="footer-links">
+
+        <h4>Socials</h4>
+
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">WhatsApp</a>
+
+      </div>
+
+    </div>
+
+    <div class="copyright">
+    © 2026 BUNK Cafe. All Rights Reserved.
+    </div>
+
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    // Toggle menu state on icon click
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    // Close side panel drawer automatically when a navigation link is clicked
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuBtn.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+    
+    
+    function updateCartBadge(){
+
+  const badge =
+  document.getElementById("cartBadge");
+
+  let cart =
+  JSON.parse(localStorage.getItem("bunkCart")) || [];
+
+  if(cart.length > 0){
+
+    badge.style.display = "flex";
+    badge.innerText = cart.length;
+
+  }
+
+  else{
+
+    badge.style.display = "none";
+
+  }
+
+}
+
+updateCartBadge();
+    
+  </script>
+</body>
+</html>

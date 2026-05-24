@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>BUNK Cafe Menu & Offers</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       GLOBAL UTILITIES & BRAND THEME DEFINITIONS
+       ========================================================================== */
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      -webkit-tap-highlight-color: transparent;
+      scroll-behavior:smooth;
+    }
+
+    :root {
+      --bg: #060606;
+      --bg-main: #050505;
+      --bg-surface: #0c0c0c;
+      --bg-drawer: #121212;
+      --bg-sidebar: #181818;
+      --accent: #ff9d00;
+      --accent-glow: rgba(255, 174, 0, 0.25);
+      --text-main: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.55);
+      --border-thin: rgba(255, 255, 255, 0.06);
+      --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:
+        radial-gradient(circle at bottom right, rgba(255,157,0,0.05), transparent 25%),
+        var(--bg);
+      color:var(--text-main);
+      overflow-x:hidden;
+    }
+
+    img{
+      width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      width:90%;
+      max-width:1300px;
+      margin:auto;
+    }
+
+    /* ==========================================================================
+       NAVIGATION LAYER
+       ========================================================================== */
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      z-index:999;
+      background:rgba(0,0,0,0.55);
+      backdrop-filter:blur(20px);
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+
+    .nav-wrapper{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:20px 0;
+    }
+
+    .logo{
+      font-size:2rem;
+      font-weight:800;
+      letter-spacing:6px;
+      color:var(--accent);
+    }
+
+    .nav-links{
+      display:flex;
+      gap:35px;
+    }
+
+    .nav-links a{
+      color:var(--text-muted);
+      font-weight: 500;
+      transition:0.3s;
+    }
+
+    .nav-links a:hover, .nav-links a.active{
+      color:var(--accent);
+    }
+
+    .order-btn{
+      position:relative;
+      padding:14px 24px;
+      border:none;
+      border-radius:50px;
+      background:var(--accent);
+      color:black;
+      font-weight:700;
+      cursor:pointer;
+      transition:0.3s;
+      font-family:inherit;
+    }
+
+    .order-btn:hover{
+      transform:translateY(-3px);
+    }
+    
+    .menu-toggle{
+  display:none;
+  flex-direction:column;
+  gap:6px;
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  z-index:1001;
+}
+
+.menu-toggle span{
+  width:26px;
+  height:2px;
+  background:white;
+  transition:0.3s ease;
+}
+
+.menu-toggle.active span:nth-child(1){
+  transform:translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2){
+  opacity:0;
+}
+
+.menu-toggle.active span:nth-child(3){
+  transform:translateY(-8px) rotate(-45deg);
+}
+
+    /* ==========================================================================
+       ROTATING OFFER SLIDER / PROMOTIONAL BANNER (TOP)
+       ========================================================================== */
+    .promo-slider-section {
+      padding-top: 140px;
+      padding-bottom: 40px;
+    }
+
+    .slider-frame {
+      position: relative;
+      height: 240px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border-thin);
+      background: #111;
+    }
+
+    .slide-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index:1;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.8s var(--ease-premium), visibility 0.8s;
+      display: flex;
+      align-items: center;
+      padding: 0 60px;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .slide-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.75) contrast(0.9);
+      z-index: 1;
+    }
+
+    .slide-info-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+    }
+
+    .slide-info-content span {
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .slide-info-content h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 15px;
+    }
+
+    .slide-btn {
+      display: inline-block;
+      padding: 10px 24px;
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      font-weight: 600;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .slide-btn:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    /* Slider Dot Indicators */
+    .slider-dots-nav {
+      position: absolute;
+      bottom: 20px;
+      right: 40px;
+      z-index: 3;
+      display: flex;
+      gap: 10px;
+    }
+
+    .dot-node {
+      width: 8px;
+      height: 8px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .dot-node.active {
+      background: var(--accent);
+      width: 24px;
+      border-radius: 10px;
+    }
+
+    /* ==========================================================================
+       UTILITY DECK BAR (SEARCH & FILTER TRIGGERS)
+       ========================================================================== */
+    .utility-header-section {
+      padding: 30px 0 20px;
+    }
+
+    .section-title {
+      margin-bottom: 30px;
+    }
+
+    .section-title small {
+      color: var(--accent);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .search-control-bar {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      background: var(--bg-surface);
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: 1px solid var(--border-thin);
+    }
+
+    .search-field-box {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-field-box input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-main);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+    }
+
+    .search-field-box input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .drawer-trigger-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #171717;
+      border: 1px solid var(--border-thin);
+      color: var(--text-main);
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: 0.3s;
+    }
+
+    .drawer-trigger-btn:hover {
+      border-color: var(--accent);
+    }
+
+    .active-filter-badge {
+      background: var(--accent);
+      color: #000;
+      font-size: 0.75rem;
+      font-weight: 700;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .main-clear-btn {
+      background: transparent;
+      border: none;
+      color: #ff4a4a;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      display: none;
+      padding: 0 10px;
+    }
+
+    /* ==========================================================================
+       COMPACT ALL-ITEMS GRID DISPLAY (MULTIPLE CARDS SIDE-BY-SIDE)
+       ========================================================================== */
+    .showcase-display-section {
+      padding: 10px 0 60px;
+    }
+
+    .small-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .compact-item-card {
+      background: var(--bg-surface);
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border-thin);
+      transition: 0.4s var(--ease-premium);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .compact-item-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,174,0,0.35);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    }
+
+    .card-img-frame {
+      height: 170px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-img-frame img {
+      height: 100%;
+      object-fit: cover;
+      transition: 0.6s var(--ease-premium);
+    }
+
+    .compact-item-card:hover .card-img-frame img {
+      transform: scale(1.08);
+    }
+
+    .item-status-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--accent);
+      color: black;
+      padding: 4px 10px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      border-radius: 50px;
+      text-transform: uppercase;
+    }
+
+    .card-body-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-body-content h3 {
+      font-size: 1.15rem;
+      margin-bottom: 5px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-body-content p {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-action-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .card-price-lbl {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .card-add-btn {
+      padding: 8px 18px;
+      border-radius: 50px;
+      background: #171717;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: 0.3s;
+    }
+
+    .card-add-btn:hover {
+      background: var(--accent);
+      color: black;
+    }
+
+    .empty-state-card {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 0;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    /* ==========================================================================
+       BOTTOM PRE-FOOTER PROMOTIONAL BANNER
+       ========================================================================== */
+    .bottom-banner-section {
+      padding-bottom: 80px;
+    }
+
+    .bottom-banner-frame {
+      position: relative;
+      height: 200px;
+      border-radius: 0;
+      overflow: hidden;
+      border: 1px solid var(--border-thin);
+      background: #0f0f0f;
+      display: flex;
+      align-items: center;
+      padding: 0;
+    }
+
+    .bottom-banner-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.25) contrast(1.1);
+      z-index: 1;
+    }
+
+    .bottom-banner-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .bottom-banner-content span {
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .bottom-banner-content h3 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .bottom-banner-btn {
+      display: inline-block;
+      padding: 10px 24px;
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+    }
+
+    .bottom-banner-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px var(--accent-glow);
+    }
+
+    /* ==========================================================================
+       APP-STYLE SPLIT BOTTOM DRAWER SYSTEM
+       ========================================================================== */
+    .drawer-backdrop-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease-premium);
+    }
+
+    .drawer-backdrop-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .split-bottom-drawer {
+      position: fixed;
+      bottom: -100%;
+      left: 0;
+      width: 100%;
+      height: 48vh;
+      background: var(--bg-drawer);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px 24px 0 0;
+      z-index: 1001;
+      transition: bottom 0.4s var(--ease-premium);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .drawer-backdrop-overlay.active .split-bottom-drawer {
+      bottom: 0;
+    }
+
+    .drawer-title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 24px;
+      border-bottom: 1px solid var(--border-thin);
+      background: var(--bg-drawer);
+    }
+
+    .drawer-title-bar h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .drawer-top-clear-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .drawer-split-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .drawer-left-sidebar {
+      width: 32%;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-thin);
+      overflow-y: auto;
+    }
+
+    .sidebar-tab-item {
+      padding: 16px 24px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      font-weight: 500;
+    }
+
+    .sidebar-tab-item.active {
+      background: var(--bg-drawer);
+      color: var(--accent);
+      border-left-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .drawer-right-viewport {
+      width: 68%;
+      padding: 20px 24px;
+      overflow-y: auto;
+    }
+
+    .filter-panel-view {
+      display: none;
+    }
+
+    .filter-panel-view.active {
+      display: block;
+    }
+
+    .checkbox-list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--text-main);
+      user-select: none;
+    }
+
+    .form-checkbox-row input {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .drawer-action-footer {
+      padding: 12px 24px;
+      border-top: 1px solid var(--border-thin);
+      background: var(--bg-drawer);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .counter-stats-lbl {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .drawer-submit-btn {
+      padding: 12px 35px;
+      background: #ff9d00;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* ==========================================================================
+       BRAND CLOSURE FOOTER
+       ========================================================================== */
+    footer{
+  padding:70px 0 30px;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+
+.footer-wrapper{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:50px;
+}
+
+.footer-desc{
+  color:var(--muted);
+  line-height:1.8;
+  max-width:420px;
+  margin-top:15px;
+}
+
+.footer-links{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.footer-links h4{
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.footer-links a{
+  color:rgba(255,255,255,0.65);
+}
+
+.copyright{
+  margin-top:45px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  text-align:center;
+  color:rgba(255,255,255,0.45);
+  font-size:0.85rem;
+}
+
+    /* ==========================================================================
+       RESPONSIVE DISPLAY BREAKPOINTS
+       ========================================================================== */
+    @media(max-width:1100px){
+      .small-cards-grid{ grid-template-columns:repeat(3, 1fr); gap:16px; }
+    }
+
+    @media(max-width:768px){
+      
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-links{
+        position:fixed;
+        top:0;
+        right:-100%;
+        width:75%;
+        max-width:320px;
+        height:100vh;
+        background:#0b0b0b;
+        flex-direction:column;
+        padding:120px 40px;
+        gap:30px;
+        transition:right 0.4s cubic-bezier(0.16,1,0.3,1);
+        border-left:1px solid rgba(255,255,255,0.08);
+        box-shadow:-10px 0 30px rgba(0,0,0,0.6);
+        display:flex;
+      }
+
+      .nav-links.active{
+        right:0;
+      }
+      
+      .promo-slider-section { padding-top: 140px; }
+      .slider-frame { height: 180px; }
+      .slide { padding: 0 25px; }
+      .slide-info-content h2 { font-size: 1.4rem; margin-bottom: 10px; }
+      .slide-btn { padding: 6px 16px; font-size: 0.8rem; }
+      .slider-dots-nav { bottom: 12px; right: 20px; }
+
+      .utility-header-section { padding-top: 15px; }
+      .search-control-bar { flex-direction: column; border-radius: 16px; padding: 12px; }
+      .search-field-box { width: 100%; }
+      .drawer-trigger-btn { width: 100%; justify-content: center; }
+      .main-clear-btn { width: 100%; text-align: center; padding: 5px 0; }
+      .split-bottom-drawer { height: 58vh; }
+
+      /* DYNAMIC COMPACT MOBILE GRID */
+      .small-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .card-img-frame { height: 125px; }
+      .item-status-badge { top: 8px; left: 8px; padding: 3px 7px; font-size: 0.55rem; }
+      .card-body-content { padding: 10px; }
+      .card-body-content h3 { font-size: 0.95rem; margin-bottom: 3px; }
+      .card-body-content p { font-size: 0.78rem; margin-bottom: 10px; }
+      .card-price-lbl { font-size: 1.05rem; }
+      .card-add-btn { padding: 6px 14px; font-size: 0.78rem; }
+
+      /* Bottom Banner Mobile Adjustments */
+      .bottom-banner-section { padding-bottom: 50px; }
+      .bottom-banner-frame { height: 160px; padding: 0 24px; }
+      .bottom-banner-content h3 { font-size: 1.2rem; margin-bottom: 8px; }
+      .bottom-banner-btn { padding: 8px 18px; font-size: 0.8rem; }
+
+      .footer-wrapper { grid-template-columns: 1fr; gap: 30px; }
+    }
+
+    @media(max-width:380px) {
+      .slider-frame { height: 150px; }
+      .slide-info-content h2 { font-size: 1.1rem; }
+      .small-cards-grid { gap: 6px; }
+      .card-body-content { padding: 6px; }
+      .card-body-content h3 { font-size: 0.85rem; }
+      .card-price-lbl { font-size: 0.95rem; }
+      .bottom-banner-frame { height: 140px; }
+      .bottom-banner-content h3 { font-size: 1rem; }
+    }
+    
+    .overlay{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+  linear-gradient(
+    to bottom,
+    rgba(0,0,0,0),
+    rgba(0,0,0,0.15),
+    rgba(0,0,0,0.45),
+    #060606
+  );
+  z-index:2;
+}
+
+.cart-badge{
+  position:absolute;
+  top:-8px;
+  right:-8px;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:#ff3b3b;
+  color:white;
+  font-size:0.72rem;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid #060606;
+  display:none;
+}
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container nav-wrapper">
+
+      <div class="logo">BUNK</div>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="Redesign(2.2).html">Menu</a>
+        <a href="Redesign(2.3).html">Franchise</a>
+        <a href="Redesign(2.4).html">Gallery</a>
+        <a href="Redesign(2.5).html">Contact</a>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:15px;">
+
+        <button class="order-btn" onclick="window.location.href='Redesign(2.0).html'">Order Now<span class="cart-badge" id="cartBadge">0</span>
+        </button>
+
+        <!-- HAMBURGER -->
+        <button class="menu-toggle" id="menuBtn" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+      </div>
+
+    </div>
+  </nav>
+
+  <section class="promo-slider-section">
+    <div class="container">
+      <div class="slider-frame">
+        <div class="slide-track">
+          
+          <div class="slide active">
+            <img class="slide-bg-img" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200&auto=format&fit=crop">
+            <div class="slide-info-content">
+              <span>Limited Offer</span>
+              <h2>Get 20% OFF on all Gourmet Pizzas</h2>
+              <button class="slide-btn">Claim Deal</button>
+            </div>
+          </div>
+
+          <div class="slide">
+            <img class="slide-bg-img" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200&auto=format&fit=crop">
+            <div class="slide-info-content">
+              <span>Bunk Special</span>
+              <h2>Buy 1 Burger, Get Soft Drink Free</h2>
+              <button class="slide-btn">Order Now</button>
+            </div>
+          </div>
+
+          <div class="slide">
+            <img class="slide-bg-img" src="https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?q=80&w=1200&auto=format&fit=crop">
+            <div class="slide-info-content">
+              <span>Happy Hours</span>
+              <h2>Free Dessert on orders above ₹400</h2>
+              <button class="slide-btn">Explore Deals</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="slider-dots-nav">
+          <div class="dot-node active" data-index="0"></div>
+          <div class="dot-node" data-index="1"></div>
+          <div class="dot-node" data-index="2"></div>
+        </div>
+        <div class="overlay"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="utility-header-section">
+    <div class="container">
+      <div class="section-title">
+        <small>Craving Terminal</small>
+        <h2>Explore BUNK Menu</h2>
+      </div>
+      
+      <div class="search-control-bar">
+        <div class="search-field-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="masterSearchInput" placeholder="Search dish or flavor options...">
+        </div>
+        <button class="drawer-trigger-btn" id="openDrawerTrigger">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><circle cx="4" cy="12" r="3"></circle><circle cx="12" cy="10" r="3"></circle><circle cx="20" cy="14" r="3"></circle></svg>
+          <span>Filters</span>
+          <div class="active-filter-badge" id="deckBadgeElement">0</div>
+        </button>
+        <button class="main-clear-btn" id="deckClearAllTrigger">Clear Filters</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="showcase-display-section">
+    <div class="container">
+      <div class="small-cards-grid" id="cardShowcaseGrid">
+
+        <div class="compact-item-card" data-category="burgers" data-price="200-300" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Best Seller</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Smoky Cheese Burger</h3>
+            <p>Loaded with crispy layers, cheese sauce and premium ingredients.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹249</div><button
+            class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Smoky Cheese Burger',price:249});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Smoky Cheese Burger added to cart!');">Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="burgers" data-price="300-above" data-diet="non-veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Premium</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Double Patty Burger</h3>
+            <p>Crafted with grilled patties and signature creamy sauces.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹329</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Double Patty Burger',price:329});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Double Patty Burger added to cart!');">Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="burgers" data-price="200-300" data-diet="non-veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Hot</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Crispy Chicken Burger</h3>
+            <p>Crunchy chicken burger layered with smoky mayo dressing.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹299</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Crispy Chicken Burger',price:299});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Crispy Chicken Burger added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="burgers" data-price="200-300" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">New</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Loaded Veg Burger</h3>
+            <p>Fresh veggies layered with premium sauces and crispy textures.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹219</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Loaded Veg Burger',price:219});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Loaded Veg Burger added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="burgers" data-price="200-300" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1525059696034-4967a8e1dca2?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Spicy</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Peri Peri Crunch Burger</h3>
+            <p>Fiery peri-peri seasoned patty topped with hot jalapenos and cheese.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹259</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Peri Peri Crunch Burger',price:259});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Peri Peri Crunch Burger added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="burgers" data-price="under-200" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Classic</div>
+          </div>
+          <div class="card-body-content">
+            <h3>BUNK Aloo Tikki Trio</h3>
+            <p>Crispy potato patty with fresh cucumber and signature herb sauce.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹149</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'BUNK Aloo Tikki Trio',price:149});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('BUNK Aloo Tikki Trio added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="pizza" data-price="300-above" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Cheesy</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Farmhouse Pizza</h3>
+            <p>Loaded with organic vegetables and rich mozzarella cheese layers.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹399</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Farmhouse Pizza',price:399});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Farmhouse Pizza added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="pizza" data-price="300-above" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Best</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Cheese Burst Pizza</h3>
+            <p>Molten premium cheese stuffed deep inside fresh crispy crust margins.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹449</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Cheese Burst Pizza',price:499});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Cheese Burst Pizza added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="pizza" data-price="300-above" data-diet="non-veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Premium</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Pepperoni Pizza</h3>
+            <p>Classic smoky chicken pepperoni layered over gourmet marinara sauce.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹499</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Pepperoni Pizza',price:499});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Pepperoni Pizza added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="pizza" data-price="300-above" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1604382355076-af4b0eb60143?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Spicy</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Tandoori Paneer Pizza</h3>
+            <p>Authentic smoky tandoori paneer cubes mixed with spicy red paprika.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹429</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Tandoori Paneer Pizza',price:429});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Tandoori Paneer Pizza added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="pizza" data-price="200-300" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Classic</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Margherita Gold</h3>
+            <p>Simple perfection featuring heavy layers of fresh liquid mozzarella.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹299</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Margherita Gold',price:299});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Margherita Gold added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="pasta" data-price="200-300" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Creamy</div>
+          </div>
+          <div class="card-body-content">
+            <h3>White Sauce Pasta</h3>
+            <p>Rich alfredo cheese sauce tossed with penne and exotic mushrooms.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹279</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'White Sauce Pasta',price:279});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('White Sauce Pasta added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="pasta" data-price="200-300" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Tangy</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Spicy Arrabbiata Pasta</h3>
+            <p>Fiery Red Italian tomato sauce loaded with garlic and chilli flakes.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹259</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Spicy Arrabbiata Pasta',price:259});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Spicy Arrabbiata Pasta added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="pasta" data-price="200-300" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Hit</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Pink Sauce Fusion</h3>
+            <p>Harmonious blend of creamy white alfredo and rich tangy red marinara.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹299</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Pink Sauce Fusion',price:299});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Pink Sauce Fusion added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="drinks" data-price="under-200" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Cool</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Mint Lemon Mojito</h3>
+            <p>Fresh crisp lemon and mint leaves muddled with sparkling soda.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹149</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Mint Lemon Mojito',price:149});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Mint Lemon Mojito added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="drinks" data-price="under-200" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1541658016709-82535e94bc69?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Sweet</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Strawberry Frappe</h3>
+            <p>Thick blended milkshake loaded with fresh strawberry strawberry pulp.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹189</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Strawberry Frappe',price:189});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Strawberry Frappe added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="drinks" data-price="under-200" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Premium</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Belgian Chocolate Shake</h3>
+            <p>Rich dark chocolate sauce mixed into creamy frozen chocolate milk.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹199</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Belgian Chocolate Shake',price:199});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Belgian Chocolate Shake added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="desserts" data-price="200-300" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">Trending</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Sizzling Brownie</h3>
+            <p>Hot chocolate brownie served with scoop of premium vanilla icecream.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹229</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Sizzling Brownie',price:229});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Sizzling Brownie added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+        <div class="compact-item-card" data-category="desserts" data-price="under-200" data-diet="veg">
+          <div class="card-img-frame">
+            <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=80&w=1200&auto=format&fit=crop">
+            <div class="item-status-badge">New</div>
+          </div>
+          <div class="card-body-content">
+            <h3>Red Velvet Lava Cake</h3>
+            <p>Fluffy cake with an exploding center of warm white chocolate lava.</p>
+            <div class="card-action-row"><div class="card-price-lbl">₹189</div><button class="card-add-btn"
+            onclick="let cart =JSON.parse(localStorage.getItem('bunkCart')) || [];
+              cart.push({name:'Red Velvet Lava Cake',price:189});
+              localStorage.setItem('bunkCart',JSON.stringify(cart));
+              updateCartBadge();
+              alert('Red Velvet Lava Cake added to cart!');">Add
+              </button></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="empty-state-card" id="emptyDisplayNotice">
+        <h3>No cafe items match your filters.</h3>
+        <p style="margin-top: 8px; font-size: 0.9rem;">Reset or modify selections to view options.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bottom-banner-section">
+    <div class="container">
+      <div class="bottom-banner-frame">
+        <img class="bottom-banner-bg" src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=1200&auto=format&fit=crop">
+        <div class="bottom-banner-content">
+          <span>Late Night Cravings?</span>
+          <h3>Get free delivery on all orders placed after 11:00 PM</h3>
+          <button class="bottom-banner-btn">Order Midnight Feast</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="drawer-backdrop-overlay" id="filterDrawerOverlay">
+    <div class="split-bottom-drawer">
+      <div class="drawer-title-bar">
+        <h2>Filters</h2>
+        <button class="drawer-top-clear-btn" id="drawerResetTrigger">Clear Filters</button>
+      </div>
+
+      <div class="drawer-split-body">
+        <div class="drawer-left-sidebar">
+          <div class="sidebar-tab-item active" data-target="panel-category">Category</div>
+          <div class="sidebar-tab-item" data-target="panel-price">Price</div>
+          <div class="sidebar-tab-item" data-target="panel-diet">Dietary Preference</div>
+        </div>
+
+        <div class="drawer-right-viewport">
+          <div class="filter-panel-view active" id="panel-category">
+            <div class="checkbox-list-container">
+              <label class="form-checkbox-row"><input type="checkbox" class="filter-checkbox" data-type="category" value="burgers"><span>Burgers</span></label>
+              <label class="form-checkbox-row"><input type="checkbox" class="filter-checkbox" data-type="category" value="pizza"><span>Pizza</span></label>
+              <label class="form-checkbox-row"><input type="checkbox" class="filter-checkbox" data-type="category" value="pasta"><span>Pasta</span></label>
+              <label class="form-checkbox-row"><input type="checkbox" class="filter-checkbox" data-type="category" value="drinks"><span>Drinks</span></label>
+              <label class="form-checkbox-row"><input type="checkbox" class="filter-checkbox" data-type="category" value="desserts"><span>Desserts</span></label>
+            </div>
+          </div>
+
+          <div class="filter-panel-view" id="panel-price">
+            <div class="checkbox-list-container">
+              <label class="form-checkbox-row"><input type="checkbox" class="filter-checkbox" data-type="price" value="under-200"><span>Under ₹200</span></label>
+              <label class="form-checkbox-row"><input type="checkbox" class="filter-checkbox" data-type="price" value="200-300"><span>₹200 - ₹300</span></label>
+              <label class="form-checkbox-row"><input type="checkbox" class="filter-checkbox" data-type="price" value="300-above"><span>Above ₹300</span></label>
+            </div>
+          </div>
+
+          <div class="filter-panel-view" id="panel-diet">
+            <div class="checkbox-list-container">
+              <label class="form-checkbox-row"><input type="checkbox" class="filter-checkbox" data-type="diet" value="veg"><span>Vegetarian Only</span></label>
+              <label class="form-checkbox-row"><input type="checkbox" class="filter-checkbox" data-type="diet" value="non-veg"><span>Non-Veg Choice</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="drawer-action-footer">
+        <div class="counter-stats-lbl" id="activeMatchCounter">All products shown</div>
+        <button class="drawer-submit-btn" id="drawerApplyTrigger">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+
+    <div class="container footer-wrapper">
+
+      <div>
+
+        <div class="logo">BUNK</div>
+
+        <p class="footer-desc">
+        Premium youth cafe experience built for unforgettable cravings,
+        aesthetic vibes, and modern urban culture.
+        </p>
+
+      </div>
+
+      <div class="footer-links">
+
+        <h4>Quick Links</h4>
+
+        <a href="#">Home</a>
+        <a href="#">Menu</a>
+        <a href="#">Franchise</a>
+        <a href="#">Gallery</a>
+
+      </div>
+
+      <div class="footer-links">
+
+        <h4>Socials</h4>
+
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">WhatsApp</a>
+
+      </div>
+
+    </div>
+
+    <div class="copyright">
+    © 2026 BUNK Cafe. All Rights Reserved.
+    </div>
+
+  </footer>
+
+  <script>
+    /* COMPONENT DESK QUERY REGISTRY */
+    const openDrawerTrigger = document.getElementById('openDrawerTrigger');
+    const filterDrawerOverlay = document.getElementById('filterDrawerOverlay');
+    const drawerApplyTrigger = document.getElementById('drawerApplyTrigger');
+    const deckClearAllTrigger = document.getElementById('deckClearAllTrigger');
+    const drawerResetTrigger = document.getElementById('drawerResetTrigger');
+    const deckBadgeElement = document.getElementById('deckBadgeElement');
+    const masterSearchInput = document.getElementById('masterSearchInput');
+    const cardShowcaseGrid = document.getElementById('cardShowcaseGrid');
+    const emptyDisplayNotice = document.getElementById('emptyDisplayNotice');
+
+    const itemCards = cardShowcaseGrid.querySelectorAll('.compact-item-card');
+    const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+    const sidebarTabs = document.querySelectorAll('.sidebar-tab-item');
+    const designPanels = document.querySelectorAll('.filter-panel-view');
+    const activeMatchCounter = document.getElementById('activeMatchCounter');
+
+    /* STICKY BLUR EFFECT OVER NAVIGATION ROW ON SCROLL */
+    window.addEventListener('scroll', () => {
+      const navElement = document.querySelector('nav');
+      if(window.scrollY > 50){
+        navElement.style.background = 'rgba(0,0,0,0.85)';
+      } else {
+        navElement.style.background = 'rgba(0,0,0,0.75)';
+      }
+    });
+
+    /* ROTATING PROMOTIONAL SLIDER SYSTEM ENGINE */
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot-node');
+    let currentSlideIndex = 0;
+    let slideInterval;
+
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+      currentSlideIndex = index;
+    }
+
+    function nextSlide() {
+      let nextIndex = (currentSlideIndex + 1) % slides.length;
+      showSlide(nextIndex);
+    }
+
+    function startSlideRotation() {
+      slideInterval = setInterval(nextSlide, 4500); // changes every 4.5 seconds
+    }
+
+    function resetSlideRotation() {
+      clearInterval(slideInterval);
+      startSlideRotation();
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.dataset.index);
+        showSlide(index);
+        resetSlideRotation();
+      });
+    });
+
+    // Initialize Offer Slider rotation
+    startSlideRotation();
+
+
+    /* DRAWER OPERATIONAL TRIGGERS */
+    openDrawerTrigger.addEventListener('click', () => {
+      filterDrawerOverlay.classList.add('active');
+      calculateTemporaryCounts();
+    });
+
+    filterDrawerOverlay.addEventListener('click', (event) => {
+      if(event.target === filterDrawerOverlay) filterDrawerOverlay.classList.remove('active');
+    });
+
+    /* DRAWER SIDEBAR INTERNAL TAB NAVIGATION ROUTER */
+    sidebarTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        sidebarTabs.forEach(t => t.classList.remove('active'));
+        designPanels.forEach(p => p.classList.remove('active'));
+
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.target).classList.add('active');
+      });
+    });
+
+    /* VALUE FILTERS ARRAY MAPPING EXECUTOR */
+    function getSelectedFilters() {
+      const selected = { category: [], price: [], diet: [] };
+      filterCheckboxes.forEach(cb => {
+        if(cb.checked) {
+          selected[cb.dataset.type].push(cb.value);
+        }
+      });
+      return selected;
+    }
+
+    /* REAL-TIME INNER COUNT COMPILER */
+    function calculateTemporaryCounts() {
+      const selected = getSelectedFilters();
+      let matchCount = 0;
+
+      itemCards.forEach(card => {
+        const matchesCat = selected.category.length === 0 || selected.category.includes(card.dataset.category);
+        const matchesPrice = selected.price.length === 0 || selected.price.includes(card.dataset.price);
+        const matchesDiet = selected.diet.length === 0 || selected.diet.includes(card.dataset.diet);
+
+        if(matchesCat && matchesPrice && matchesDiet) matchCount++;
+      });
+
+      activeMatchCounter.textContent = `${matchCount} products found`;
+    }
+
+    filterCheckboxes.forEach(cb => cb.addEventListener('change', calculateTemporaryCounts));
+
+    /* CENTRAL MASTER MATRIX FILTER ACTION */
+    function executeMasterFilter() {
+      const selected = getSelectedFilters();
+      const searchQuery = masterSearchInput.value.toLowerCase().trim();
+      let totalActiveFiltersCount = selected.category.length + selected.price.length + selected.diet.length;
+
+      if(totalActiveFiltersCount > 0) {
+        deckBadgeElement.style.display = 'flex';
+        deckBadgeElement.textContent = totalActiveFiltersCount;
+        deckClearAllTrigger.style.display = 'block';
+      } else {
+        deckBadgeElement.style.display = 'none';
+        deckClearAllTrigger.style.display = 'none';
+      }
+
+      let runningVisibleCards = 0;
+
+      itemCards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const desc = card.querySelector('p').textContent.toLowerCase();
+
+        const matchesSearch = title.includes(searchQuery) || desc.includes(searchQuery);
+        const matchesCat = selected.category.length === 0 || selected.category.includes(card.dataset.category);
+        const matchesPrice = selected.price.length === 0 || selected.price.includes(card.dataset.price);
+        const matchesDiet = selected.diet.length === 0 || selected.diet.includes(card.dataset.diet);
+
+        if(matchesSearch && matchesCat && matchesPrice && matchesDiet) {
+          card.style.display = 'flex';
+          runningVisibleCards++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      emptyDisplayNotice.style.display = (runningVisibleCards === 0) ? 'block' : 'none';
+    }
+
+    /* DRAWER ACTION SUBMIT & DISMISS */
+    drawerApplyTrigger.addEventListener('click', () => {
+      executeMasterFilter();
+      filterDrawerOverlay.classList.remove('active');
+    });
+
+    function completeResetAction() {
+      filterCheckboxes.forEach(cb => cb.checked = false);
+      masterSearchInput.value = '';
+      executeMasterFilter();
+      calculateTemporaryCounts();
+    }
+
+    deckClearAllTrigger.addEventListener('click', completeResetAction);
+    drawerResetTrigger.addEventListener('click', completeResetAction);
+    masterSearchInput.addEventListener('input', executeMasterFilter);
+    
+    
+    const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+  menuBtn.classList.toggle("active");
+  navLinks.classList.toggle("active");
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    menuBtn.classList.remove("active");
+    navLinks.classList.remove("active");
+  });
+});
+
+
+const params =
+new URLSearchParams(window.location.search);
+
+const category =
+params.get("category");
+
+if(category){
+
+  filterCheckboxes.forEach(cb => {
+
+    if(
+      cb.dataset.type === "category" &&
+      cb.value === category
+    ){
+      cb.checked = true;
+    }
+
+  });
+
+  executeMasterFilter();
+
+}
+
+
+function updateCartBadge(){
+
+  const badge =
+  document.getElementById("cartBadge");
+
+  let cart =
+  JSON.parse(localStorage.getItem("bunkCart")) || [];
+
+  if(cart.length > 0){
+
+    badge.style.display = "flex";
+    badge.innerText = cart.length;
+
+  }
+
+  else{
+
+    badge.style.display = "none";
+
+  }
+
+}
+
+updateCartBadge();
+    
+  </script>
+
+</body>
+</html>

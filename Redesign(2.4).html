@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+<title>BUNK Cafe Gallery</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+:root{
+  --bg:#060606;
+  --surface:#111111;
+  --accent:#ff9d00;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,0.62);
+  --border:rgba(255,255,255,0.08);
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:
+  radial-gradient(circle at top left, rgba(255,157,0,0.08), transparent 20%),
+  radial-gradient(circle at bottom right, rgba(255,157,0,0.05), transparent 25%),
+  var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+img{
+  width:100%;
+  display:block;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.container{
+  width:90%;
+  max-width:1300px;
+  margin:auto;
+}
+
+/* =========================================================
+NAVBAR
+========================================================= */
+
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:999;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.nav-wrapper{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 0;
+}
+
+.logo{
+  font-size:2rem;
+  font-weight:800;
+  letter-spacing:6px;
+  color:var(--accent);
+}
+
+.nav-links{
+  display:flex;
+  gap:35px;
+}
+
+.nav-links a{
+  color:rgba(255,255,255,0.68);
+  transition:0.3s;
+}
+
+.nav-links a:hover,
+.nav-links .active{
+  color:var(--accent);
+}
+
+.menu-toggle{
+  display:none;
+  flex-direction:column;
+  gap:6px;
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  z-index:1001;
+}
+
+.menu-toggle span{
+  width:26px;
+  height:2px;
+  background:white;
+  transition:0.3s;
+}
+
+.order-btn{
+  position:relative;
+  padding:14px 24px;
+  border:none;
+  border-radius:50px;
+  background:var(--accent);
+  color:black;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+  font-family:inherit;
+}
+
+.order-btn:hover{
+  transform:translateY(-3px);
+}
+
+/* =========================================================
+HERO
+========================================================= */
+
+.hero{
+  position:relative;
+  min-height:auto;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  padding:140px 0 70px;
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+}
+
+.hero-bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(0.28);
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:
+  linear-gradient(to bottom, rgba(0,0,0,0.45), #060606);
+}
+
+.hero-content{
+  position:relative;
+  z-index:5;
+  max-width:900px;
+}
+
+.hero-tag{
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:50px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.05);
+  color:var(--accent);
+  letter-spacing:4px;
+  font-size:0.78rem;
+  margin-bottom:30px;
+}
+
+.hero-content h1{
+  font-size:7rem;
+  line-height:0.9;
+  letter-spacing:-5px;
+  margin-bottom:25px;
+}
+
+.hero-content h1 span{
+  color:var(--accent);
+}
+
+.hero-content p{
+  max-width:650px;
+  color:var(--muted);
+  line-height:1.9;
+  font-size:1.05rem;
+}
+
+/* =========================================================
+SECTION TITLE
+========================================================= */
+
+section{
+  padding:90px 0;
+}
+
+.section-title{
+  margin-bottom:50px;
+}
+
+.section-title small{
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:4px;
+  display:block;
+  margin-bottom:10px;
+}
+
+.section-title h2{
+  font-size:4rem;
+  line-height:0.95;
+  letter-spacing:-3px;
+}
+
+/* =========================================================
+CATEGORY GALLERY
+========================================================= */
+
+.gallery-category{
+  margin-bottom:90px;
+}
+
+.gallery-head{
+  margin-bottom:30px;
+  max-width:700px;
+}
+
+.gallery-head small{
+  color:var(--accent);
+  letter-spacing:4px;
+  display:block;
+  margin-bottom:10px;
+}
+
+.gallery-head h3{
+  font-size:3rem;
+  line-height:1;
+  letter-spacing:-2px;
+  margin-bottom:15px;
+}
+
+.gallery-head p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.horizontal-gallery{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  padding-bottom:10px;
+  scroll-snap-type:x mandatory;
+}
+
+.horizontal-gallery::-webkit-scrollbar{
+  height:6px;
+}
+
+.horizontal-gallery::-webkit-scrollbar-thumb{
+  background:rgba(255,157,0,0.3);
+  border-radius:20px;
+}
+
+.horizontal-gallery img{
+  width:320px;
+  height:420px;
+  object-fit:cover;
+  border-radius:28px;
+  flex-shrink:0;
+  scroll-snap-align:start;
+  transition:0.5s;
+  cursor:pointer;
+}
+
+.horizontal-gallery img:hover{
+  transform:scale(1.04);
+  filter:brightness(0.75);
+}
+
+@media(max-width:768px){
+
+  .gallery-head h3{
+    font-size:2.2rem;
+  }
+
+  .horizontal-gallery img{
+    width:260px;
+    height:340px;
+    border-radius:22px;
+  }
+
+}
+
+/* =========================================================
+FEATURE BANNER
+========================================================= */
+
+.feature-banner{
+  position:relative;
+  min-height:520px;
+  border-radius:40px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  margin-top:30px;
+}
+
+.feature-banner img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(0.3);
+}
+
+.feature-banner::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+  linear-gradient(to right, rgba(0,0,0,0.82), transparent);
+}
+
+.feature-content{
+  position:relative;
+  z-index:5;
+  max-width:650px;
+  padding:60px;
+}
+
+.feature-content small{
+  color:var(--accent);
+  letter-spacing:4px;
+  display:block;
+  margin-bottom:15px;
+}
+
+.feature-content h2{
+  font-size:4.5rem;
+  line-height:0.92;
+  letter-spacing:-4px;
+  margin-bottom:20px;
+}
+
+.feature-content p{
+  color:var(--muted);
+  line-height:1.8;
+  margin-bottom:30px;
+}
+
+.btn{
+  padding:16px 30px;
+  border-radius:50px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  font-family:inherit;
+  transition:0.3s;
+}
+
+.primary-btn{
+  background:var(--accent);
+  color:black;
+}
+
+.primary-btn:hover{
+  transform:translateY(-3px);
+}
+
+/* =========================================================
+SOCIAL SECTION
+========================================================= */
+
+.social-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
+
+.social-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:28px;
+  overflow:hidden;
+  transition:0.4s;
+}
+
+.social-card:hover{
+  transform:translateY(-8px);
+}
+
+.social-card img{
+  height:260px;
+  object-fit:cover;
+}
+
+.social-content{
+  padding:25px;
+}
+
+.social-content h3{
+  margin-bottom:12px;
+}
+
+.social-content p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:18px;
+}
+
+.social-meta{
+  display:flex;
+  justify-content:space-between;
+  color:rgba(255,255,255,0.45);
+  font-size:0.85rem;
+}
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+footer{
+  padding:70px 0 30px;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+
+.footer-wrapper{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:50px;
+}
+
+.footer-desc{
+  color:var(--muted);
+  line-height:1.8;
+  max-width:420px;
+  margin-top:15px;
+}
+
+.footer-links{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.footer-links h4{
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.footer-links a{
+  color:rgba(255,255,255,0.65);
+}
+
+.copyright{
+  margin-top:45px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  text-align:center;
+  color:rgba(255,255,255,0.45);
+  font-size:0.85rem;
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+  .social-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .menu-toggle{
+    display:flex;
+  }
+
+  .nav-links{
+    position:fixed;
+    top:0;
+    right:-100%;
+    width:75%;
+    max-width:320px;
+    height:100vh;
+    background:#0b0b0b;
+    flex-direction:column;
+    padding:120px 40px;
+    gap:30px;
+    transition:right 0.4s cubic-bezier(0.16,1,0.3,1);
+    border-left:1px solid rgba(255,255,255,0.08);
+    box-shadow:-10px 0 30px rgba(0,0,0,0.6);
+  }
+
+  .nav-links.active{
+    right:0;
+  }
+
+  .menu-toggle.active span:nth-child(1){
+    transform:translateY(8px) rotate(45deg);
+  }
+
+  .menu-toggle.active span:nth-child(2){
+    opacity:0;
+  }
+
+  .menu-toggle.active span:nth-child(3){
+    transform:translateY(-8px) rotate(-45deg);
+  }
+
+  .hero-content h1{
+    font-size:4rem;
+    letter-spacing:-2px;
+  }
+
+  .section-title h2{
+    font-size:2.8rem;
+    letter-spacing:-2px;
+  }
+
+  .feature-content{
+    padding:35px 25px;
+  }
+
+  .feature-content h2{
+    font-size:2.6rem;
+    letter-spacing:-2px;
+  }
+
+  .footer-wrapper{
+    grid-template-columns:1fr;
+    gap:35px;
+  }
+
+}
+
+.cart-badge{
+  position:absolute;
+  top:-8px;
+  right:-8px;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:#ff3b3b;
+  color:white;
+  font-size:0.72rem;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid #060606;
+  display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+NAVBAR
+========================================================= -->
+
+<nav>
+
+  <div class="container nav-wrapper">
+
+    <div class="logo">BUNK</div>
+
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="Redesign(2.2).html">Menu</a>
+      <a href="Redesign(2.3).html">Franchise</a>
+      <a href="Redesign(2.4).html" class="active">Gallery</a>
+      <a href="Redesign(2.5).html">Contact</a>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:15px;">
+
+      <button class="order-btn" onclick="window.location.href='Redesign(2.0).html'">Order Now<span class="cart-badge" id="cartBadge">0</span>
+      </button>
+
+      <button class="menu-toggle" id="menuBtn" aria-label="Toggle Navigation Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+
+  </div>
+
+</nav>
+
+<!-- =========================================================
+HERO
+========================================================= -->
+
+<section class="hero">
+
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2000&auto=format&fit=crop">
+    <div class="overlay"></div>
+  </div>
+
+  <div class="container hero-content">
+
+    <div class="hero-tag">
+      VISUAL EXPERIENCE
+    </div>
+
+    <h1>
+      THE <span>BUNK</span><br>
+      GALLERY.
+    </h1>
+
+    <p>
+      A cinematic showcase of food, ambience, youth culture, aesthetic interiors,
+      late-night energy, and unforgettable cafe experiences.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+GALLERY
+========================================================= -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <small>Visual Collection</small>
+      <h2>Captured<br>Moments</h2>
+    </div>
+    
+    <div class="gallery-category">
+
+      <div class="gallery-head">
+
+        <small>BURGERS</small>
+
+        <h3>Smoky. Juicy. Loaded.</h3>
+
+        <p>Crafted for bold cravings with premium layers,
+      melted cheese, rich sauces, and unforgettable bites.</p>
+
+      </div>
+
+      <div class="horizontal-gallery">
+
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1607013251379-e6eecfffe234?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=1200&auto=format&fit=crop">
+
+      </div>
+
+    </div>
+    
+    <!-- ==========PIZZA============= -->
+
+    <div class="gallery-category">
+
+      <div class="gallery-head">
+
+        <small>PIZZA</small>
+
+        <h3>Cheesy Slices. Perfect Nights.</h3>
+
+        <p>
+      Fresh toppings, rich mozzarella, and oven-baked perfection
+      made for unforgettable cafe moments.
+        </p>
+
+      </div>
+
+      <div class="horizontal-gallery">
+
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1511689660979-10d2b1aada49?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=1200&auto=format&fit=crop">
+
+      </div>
+
+    </div>
+    
+    <!-- ===========DRINKS=========== -->
+
+    <div class="gallery-category">
+
+      <div class="gallery-head">
+
+        <small>DRINKS</small>
+
+        <h3>Chill Sips. Neon Vibes.</h3>
+
+        <p>
+      Refreshing mojitos, iced drinks, and aesthetic beverages
+      designed for modern hangouts and late-night cafe sessions.
+        </p>
+
+      </div>
+
+      <div class="horizontal-gallery">
+
+        <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=1200&auto=format&fit=crop">
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+FEATURE BANNER
+========================================================= -->
+
+<section>
+
+  <div class="container">
+
+    <div class="feature-banner">
+
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2000&auto=format&fit=crop">
+
+      <div class="feature-content">
+
+        <small>BUNK AFTER DARK</small>
+
+        <h2>
+          WHERE THE<br>
+          CITY HANGS OUT.
+        </h2>
+
+        <p>
+          From neon-lit corners to midnight conversations,
+          BUNK creates an atmosphere designed for modern youth culture.
+        </p>
+
+        <button class="btn primary-btn" onclick="window.location.href='Redesign(2.5).html#map'">
+          Visit BUNK
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+SOCIAL SECTION
+========================================================= -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <small>Social Moments</small>
+      <h2>Instagram<br>Inspired</h2>
+    </div>
+
+    <div class="social-grid">
+
+      <div class="social-card">
+
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="social-content">
+
+          <h3>Midnight Cravings</h3>
+
+          <p>
+            Capturing the perfect late-night food experience at BUNK Cafe.
+          </p>
+
+          <div class="social-meta">
+            <span>@bunkcafe</span>
+            <span>12.5K Likes</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="social-card">
+
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="social-content">
+
+          <h3>Pizza Nights</h3>
+
+          <p>
+            Loaded cheesy slices crafted for unforgettable cafe moments.
+          </p>
+
+          <div class="social-meta">
+            <span>@bunkcafe</span>
+            <span>18.2K Likes</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="social-card">
+
+        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="social-content">
+
+          <h3>Urban Interiors</h3>
+
+          <p>
+            Aesthetic ambience designed for modern hangouts and conversations.
+          </p>
+
+          <div class="social-meta">
+            <span>@bunkcafe</span>
+            <span>21.4K Likes</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+FOOTER
+========================================================= -->
+
+<footer>
+
+  <div class="container footer-wrapper">
+
+    <div>
+
+      <div class="logo">BUNK</div>
+
+      <p class="footer-desc">
+        Premium youth cafe experience built for unforgettable cravings,
+        urban culture, aesthetic vibes, and modern hangouts.
+      </p>
+
+    </div>
+
+    <div class="footer-links">
+
+      <h4>Quick Links</h4>
+
+      <a href="#">Home</a>
+      <a href="#">Menu</a>
+      <a href="#">Franchise</a>
+      <a href="#">Contact</a>
+
+    </div>
+
+    <div class="footer-links">
+
+      <h4>Socials</h4>
+
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">WhatsApp</a>
+
+    </div>
+
+  </div>
+
+  <div class="copyright">
+    © 2026 BUNK Cafe. All Rights Reserved.
+  </div>
+
+</footer>
+
+<script>
+
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('active');
+  navLinks.classList.toggle('active');
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    menuBtn.classList.remove('active');
+    navLinks.classList.remove('active');
+  });
+});
+
+
+function updateCartBadge(){
+
+  const badge =
+  document.getElementById("cartBadge");
+
+  let cart =
+  JSON.parse(localStorage.getItem("bunkCart")) || [];
+
+  if(cart.length > 0){
+
+    badge.style.display = "flex";
+    badge.innerText = cart.length;
+
+  }
+
+  else{
+
+    badge.style.display = "none";
+
+  }
+
+}
+
+updateCartBadge();
+
+</script>
+
+</body>
+</html>

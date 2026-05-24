@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+<title>BUNK Cafe Franchise</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root{
+  --bg:#060606;
+  --surface:#101010;
+  --surface2:#171717;
+  --accent:#ff9d00;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,0.62);
+  --border:rgba(255,255,255,0.07);
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:
+  radial-gradient(circle at top left, rgba(255,157,0,0.08), transparent 20%),
+  radial-gradient(circle at bottom right, rgba(255,157,0,0.05), transparent 25%),
+  var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+img{
+  width:100%;
+  display:block;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.container{
+  width:90%;
+  max-width:1300px;
+  margin:auto;
+}
+
+/* =========================================================
+NAVBAR
+========================================================= */
+
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:999;
+  background-color:black;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.nav-wrapper{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 0;
+}
+
+.logo{
+  font-size:2rem;
+  font-weight:800;
+  letter-spacing:6px;
+  color:var(--accent);
+}
+
+.nav-links{
+  display:flex;
+  gap:35px;
+}
+
+.nav-links a{
+  color:rgba(255,255,255,0.68);
+  transition:0.3s;
+}
+
+.nav-links a:hover,
+ .active{
+  color:var(--accent);
+}
+
+.order-btn{
+  position:relative;
+  padding:14px 24px;
+  border:none;
+  border-radius:50px;
+  background:var(--accent);
+  color:black;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+  font-family:inherit;
+}
+
+.order-btn:hover{
+  transform:translateY(-3px);
+}
+
+.menu-toggle{
+  display:none;
+  flex-direction:column;
+  gap:6px;
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  z-index:1001;
+}
+
+.menu-toggle span{
+  width:26px;
+  height:2px;
+  background:white;
+  transition:0.3s;
+}
+
+/* =========================================================
+HERO
+========================================================= */
+
+.hero{
+  position:relative;
+  min-height:auto;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  padding:140px 0 70px;
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+}
+
+.hero-bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(0.28);
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:
+  linear-gradient(to bottom, rgba(0,0,0,0.5), #060606);
+}
+
+.hero-wrapper{
+  position:relative;
+  z-index:5;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:80px;
+}
+
+.hero-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 18px;
+  border-radius:50px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.05);
+  margin-bottom:25px;
+  color:var(--accent);
+  font-size:0.8rem;
+  letter-spacing:3px;
+}
+
+.hero-tag span{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 15px var(--accent);
+}
+
+.hero-text h1{
+  font-size:6rem;
+  line-height:0.92;
+  letter-spacing:-4px;
+  margin-bottom:25px;
+}
+
+.hero-text h1 span{
+  color:var(--accent);
+}
+
+.hero-text p{
+  color:var(--muted);
+  line-height:1.8;
+  max-width:580px;
+  margin-bottom:35px;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:18px;
+}
+
+.btn{
+  padding:16px 30px;
+  border-radius:50px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  transition:0.3s;
+  font-family:inherit;
+}
+
+.primary-btn{
+  background:var(--accent);
+  color:black;
+}
+
+.secondary-btn{
+  background:transparent;
+  color:white;
+  border:1px solid rgba(255,255,255,0.12);
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+}
+
+.hero-card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(18px);
+  border-radius:28px;
+  padding:35px;
+}
+
+.hero-card small{
+  color:var(--accent);
+  letter-spacing:3px;
+}
+
+.hero-card h3{
+  font-size:2.2rem;
+  margin:12px 0;
+}
+
+.hero-card p{
+  color:var(--muted);
+  line-height:1.8;
+  margin-bottom:25px;
+}
+
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.stat-box{
+  background:rgba(0,0,0,0.3);
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:18px;
+  padding:22px;
+}
+
+.stat-box h2{
+  color:var(--accent);
+  margin-bottom:5px;
+}
+
+.stat-box p{
+  font-size:0.8rem;
+  color:rgba(255,255,255,0.5);
+  margin:0;
+}
+
+/* =========================================================
+SECTION TITLE
+========================================================= */
+
+section{
+  padding:30px 0;
+}
+
+.section-title{
+  margin-bottom:55px;
+}
+
+.section-title small{
+  color:var(--accent);
+  letter-spacing:4px;
+  text-transform:uppercase;
+  display:block;
+  margin-bottom:10px;
+}
+
+.section-title h2{
+  font-size:4rem;
+  line-height:0.95;
+  letter-spacing:-3px;
+}
+
+/* =========================================================
+INVESTMENT PLANS
+========================================================= */
+
+.plans-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
+
+.plan-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:30px;
+  padding:35px;
+  transition:0.4s;
+}
+
+.plan-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(255,157,0,0.2);
+}
+
+.plan-card.active{
+  background:
+  linear-gradient(135deg, rgba(255,157,0,0.15), rgba(255,255,255,0.03));
+  border-color:rgba(255,157,0,0.2);
+}
+
+.plan-card small{
+  color:var(--accent);
+  letter-spacing:3px;
+}
+
+.plan-card h3{
+  font-size:2rem;
+  margin:14px 0;
+}
+
+.plan-card h1{
+  font-size:3rem;
+  margin-bottom:25px;
+}
+
+.plan-card ul{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  margin-bottom:30px;
+}
+
+.plan-card ul li{
+  color:var(--muted);
+}
+
+.plan-btn{
+  width:100%;
+}
+
+/* =========================================================
+WHY PARTNER
+========================================================= */
+
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:22px;
+}
+
+.feature-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:24px;
+  padding:30px;
+  transition:0.4s;
+}
+
+.feature-card:hover{
+  transform:translateY(-6px);
+}
+
+.feature-icon{
+  width:60px;
+  height:60px;
+  border-radius:18px;
+  background:rgba(255,157,0,0.12);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--accent);
+  font-size:1.4rem;
+  margin-bottom:20px;
+}
+
+.feature-card h3{
+  margin-bottom:10px;
+}
+
+.feature-card p{
+  color:var(--muted);
+  line-height:1.7;
+  font-size:0.92rem;
+}
+
+/* =========================================================
+TIMELINE
+========================================================= */
+
+.timeline{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:20px;
+}
+
+.timeline::before{
+  content:"";
+  position:absolute;
+  top:35px;
+  left:0;
+  width:100%;
+  height:2px;
+  background:rgba(255,255,255,0.08);
+}
+
+.timeline-step{
+  position:relative;
+  z-index:3;
+}
+
+.timeline-circle{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:var(--surface);
+  border:2px solid rgba(255,157,0,0.3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--accent);
+  font-size:1.3rem;
+  margin-bottom:20px;
+}
+
+.timeline-step h4{
+  margin-bottom:10px;
+}
+
+.timeline-step p{
+  color:var(--muted);
+  line-height:1.6;
+  font-size:0.88rem;
+}
+
+/* =========================================================
+SUCCESS SECTION
+========================================================= */
+
+.success-section{
+  background:
+  linear-gradient(135deg, rgba(255,157,0,0.1), rgba(255,255,255,0.02));
+  border:1px solid rgba(255,157,0,0.12);
+  border-radius:35px;
+  padding:60px;
+}
+
+.success-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:30px;
+}
+
+.success-card{
+  text-align:center;
+}
+
+.success-card h1{
+  font-size:4rem;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.success-card p{
+  color:rgba(255,255,255,0.6);
+}
+
+/* =========================================================
+FORM
+========================================================= */
+
+.form-wrapper{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+.form-box{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:30px;
+  padding:40px;
+  backdrop-filter:blur(18px);
+}
+
+.form-box h3{
+  font-size:2rem;
+  margin-bottom:12px;
+}
+
+.form-box p{
+  color:var(--muted);
+  margin-bottom:30px;
+}
+
+.input-group{
+  margin-bottom:20px;
+}
+
+.input-group input,
+.input-group textarea{
+  width:100%;
+  padding:16px 18px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.04);
+  color:white;
+  font-family:inherit;
+  outline:none;
+}
+
+.input-group textarea{
+  height:130px;
+  resize:none;
+}
+
+.input-group input:focus,
+.input-group textarea:focus{
+  border-color:rgba(255,157,0,0.35);
+}
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+footer{
+  padding:70px 0 30px;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+
+.footer-wrapper{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:50px;
+}
+
+.footer-desc{
+  color:var(--muted);
+  line-height:1.8;
+  max-width:420px;
+  margin-top:15px;
+}
+
+.footer-links{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.footer-links h4{
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.footer-links a{
+  color:rgba(255,255,255,0.65);
+}
+
+.copyright{
+  margin-top:45px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  text-align:center;
+  color:rgba(255,255,255,0.45);
+  font-size:0.85rem;
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+  .plans-grid{
+    grid-template-columns:1fr;
+  }
+
+  .features-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .timeline{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .timeline::before{
+    display:none;
+  }
+
+  .success-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .menu-toggle{
+    display:flex;
+  }
+
+  .nav-links{
+    position:fixed;
+    top:0;
+    right:-100%;
+    width:75%;
+    max-width:320px;
+    height:100vh;
+    background:#0b0b0b;
+    flex-direction:column;
+    padding:120px 40px;
+    gap:30px;
+    transition:right 0.4s cubic-bezier(0.16,1,0.3,1);
+    border-left:1px solid rgba(255,255,255,0.08);
+    box-shadow:-10px 0 30px rgba(0,0,0,0.6);
+  }
+
+  .active{
+    right:0;
+  }
+
+  .menu-toggle.active span:nth-child(1){
+    transform:translateY(8px) rotate(45deg);
+  }
+
+  .menu-toggle.active span:nth-child(2){
+    opacity:0;
+  }
+
+  .menu-toggle.active span:nth-child(3){
+    transform:translateY(-8px) rotate(-45deg);
+  }
+
+  .hero-wrapper{
+    grid-template-columns:1fr;
+    gap:50px;
+  }
+
+  .hero-text h1{
+    font-size:4rem;
+    letter-spacing:-2px;
+  }
+
+  .hero-buttons{
+    flex-direction:column;
+  }
+
+  .hero-buttons .btn{
+    width:100%;
+  }
+
+  .section-title h2{
+    font-size:2.8rem;
+    letter-spacing:-2px;
+  }
+
+  .features-grid{
+    grid-template-columns:1fr;
+  }
+
+  .timeline{
+    grid-template-columns:1fr;
+  }
+
+  .success-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-wrapper{
+    grid-template-columns:1fr;
+  }
+
+  .success-section{
+    padding:40px 25px;
+  }
+
+  .footer-wrapper{
+    grid-template-columns:1fr;
+    gap:35px;
+  }
+
+}
+
+.cart-badge{
+  position:absolute;
+  top:-8px;
+  right:-8px;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:#ff3b3b;
+  color:white;
+  font-size:0.72rem;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid #060606;
+  display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+NAVBAR
+========================================================= -->
+
+<nav>
+  <div class="container nav-wrapper">
+
+    <div class="logo">BUNK</div>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="Redesign(2.2).html">Menu</a>
+      <a href="Redesign(2.3).html" class="active">Franchise</a>
+      <a href="Redesign(2.4).html">Gallery</a>
+      <a href="Redesign(2.5).html">Contact</a>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:15px;">
+
+      <button class="order-btn" onclick="window.location.href='Redesign(2.0).html'"> Order Now<span class="cart-badge" id="cartBadge">0</span>
+      </button>
+
+      <button class="menu-toggle"
+      id="menuBtn"
+      aria-label="Toggle Navigation Menu">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </button>
+    </div>
+
+  </div>
+</nav>
+
+<!-- =========================================================
+HERO
+========================================================= -->
+
+<section class="hero">
+
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2000&auto=format&fit=crop">
+    <div class="overlay"></div>
+  </div>
+
+  <div class="container hero-wrapper">
+
+    <div class="hero-text">
+
+      <div class="hero-tag">
+        <span></span>
+        FAST GROWING CAFE BRAND
+      </div>
+
+      <h1>
+        BUILD YOUR<br>
+        FUTURE WITH<br>
+        <span>BUNK.</span>
+      </h1>
+
+      <p>
+        Join one of India’s fastest growing youth cafe brands and create a premium food destination designed for modern culture, fast growth, and unforgettable experiences.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="btn primary-btn">Start Franchise</button>
+        <button class="btn secondary-btn">View Investment</button>
+      </div>
+
+    </div>
+
+    <div class="hero-card">
+
+      <small>BUSINESS SNAPSHOT</small>
+
+      <h3>Premium Cafe Franchise</h3>
+
+      <p>
+        Modern interiors, youth-focused branding, strong food demand, and complete operational support built for rapid expansion.
+      </p>
+
+      <div class="stats-row">
+
+        <div class="stat-box">
+          <h2>25+</h2>
+          <p>Active Outlets</p>
+        </div>
+
+        <div class="stat-box">
+          <h2>50K+</h2>
+          <p>Monthly Customers</p>
+        </div>
+
+        <div class="stat-box">
+          <h2>₹8L+</h2>
+          <p>Avg. Monthly Sales</p>
+        </div>
+
+        <div class="stat-box">
+          <h2>24/7</h2>
+          <p>Brand Support</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+PLANS
+========================================================= -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <small>Investment Plans</small>
+      <h2>Choose Your<br>Growth Model</h2>
+    </div>
+
+    <div class="plans-grid">
+
+      <div class="plan-card">
+
+        <small>STARTER</small>
+
+        <h3>Kiosk Model</h3>
+
+        <h1>₹6L</h1>
+
+        <ul>
+          <li>Compact setup</li>
+          <li>Small investment</li>
+          <li>Perfect for malls</li>
+          <li>Fast setup support</li>
+        </ul>
+
+        <button class="btn secondary-btn plan-btn">Get Details</button>
+
+      </div>
+
+      <div class="plan-card active">
+
+        <small>MOST POPULAR</small>
+
+        <h3>Cafe Model</h3>
+
+        <h1>₹12L</h1>
+
+        <ul>
+          <li>Premium interiors</li>
+          <li>Full cafe setup</li>
+          <li>Branding support</li>
+          <li>High ROI potential</li>
+        </ul>
+
+        <button class="btn primary-btn plan-btn">Apply Now</button>
+
+      </div>
+
+      <div class="plan-card">
+
+        <small>FLAGSHIP</small>
+
+        <h3>Lounge Model</h3>
+
+        <h1>₹20L</h1>
+
+        <ul>
+          <li>Large seating area</li>
+          <li>Luxury ambience</li>
+          <li>Maximum visibility</li>
+          <li>Priority support</li>
+        </ul>
+
+        <button class="btn secondary-btn plan-btn">Explore</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+FEATURES
+========================================================= -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <small>Why Partner With BUNK</small>
+      <h2>Built For<br>Modern Growth</h2>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Fast ROI</h3>
+        <p>Strong youth demand and viral branding create powerful growth opportunities.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Brand Support</h3>
+        <p>Complete operational guidance and modern marketing strategies.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔥</div>
+        <h3>Modern Identity</h3>
+        <p>Urban youth-focused cafe branding crafted for social media culture.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3>Growth Focused</h3>
+        <p>Built for scalability with strong systems and expansion strategy.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+TIMELINE
+========================================================= -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <small>Franchise Process</small>
+      <h2>Your Journey<br>Starts Here</h2>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-step">
+        <div class="timeline-circle">1</div>
+        <h4>Apply</h4>
+        <p>Submit your franchise interest and business information.</p>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-circle">2</div>
+        <h4>Discussion</h4>
+        <p>Meet our business team to discuss investment and location.</p>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-circle">3</div>
+        <h4>Approval</h4>
+        <p>Location review, planning and final approval process.</p>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-circle">4</div>
+        <h4>Setup</h4>
+        <p>Interior setup, branding execution and staff training begins.</p>
+      </div>
+
+      <div class="timeline-step">
+        <div class="timeline-circle">5</div>
+        <h4>Launch</h4>
+        <p>Grand opening supported with promotional campaigns.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+SUCCESS
+========================================================= -->
+
+<section>
+
+  <div class="container success-section">
+
+    <div class="section-title">
+      <small>Brand Statistics</small>
+      <h2>Driven By<br>Youth Culture</h2>
+    </div>
+
+    <div class="success-grid">
+
+      <div class="success-card">
+        <h1>25+</h1>
+        <p>Operational Outlets</p>
+      </div>
+
+      <div class="success-card">
+        <h1>50K+</h1>
+        <p>Monthly Customers</p>
+      </div>
+
+      <div class="success-card">
+        <h1>100+</h1>
+        <p>Menu Items</p>
+      </div>
+
+      <div class="success-card">
+        <h1>15+</h1>
+        <p>Expansion Cities</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+FORM
+========================================================= -->
+
+<section>
+
+  <div class="container form-wrapper">
+
+    <div>
+
+      <div class="section-title">
+        <small>Start With Us</small>
+        <h2>Let's Build<br>The Next BUNK</h2>
+      </div>
+
+      <p style="color:rgba(255,255,255,0.6); line-height:1.8;">
+        Looking to launch your own premium youth cafe? Fill out the form and our business team will connect with you shortly.
+      </p>
+
+    </div>
+
+    <div class="form-box">
+
+      <h3>Franchise Inquiry</h3>
+
+      <p>Submit your details to begin the process.</p>
+
+      <form
+      action="https://formsubmit.co/kytronweblabs@gmail.com"
+      method="POST"
+      id="franchiseForm">
+
+        <!-- FormSubmit Settings -->
+        <input type="hidden" name="_captcha" value="false">
+
+        <input type="hidden"
+        name="_next"
+        value="Redesign(2.3).html">
+
+        <div class="input-group">
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            required
+            pattern="[A-Za-z\s]+"
+            oninvalid="this.setCustomValidity('Only letters are allowed')"
+            oninput="this.setCustomValidity('')">
+        </div>
+
+        <div class="input-group">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            required
+            oninvalid="this.setCustomValidity('Enter a valid email address')"
+            oninput="this.setCustomValidity('')">
+        </div>
+
+        <div class="input-group">
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Phone Number"
+            required
+            pattern="[0-9]{10}"
+            maxlength="10"
+            inputmode="numeric"
+            oninvalid="this.setCustomValidity('Enter valid 10 digit number')"
+            oninput="this.setCustomValidity('')">
+        </div>
+
+        <div class="input-group">
+          <textarea
+            name="message"
+            placeholder="Tell us about your city or business plans"
+            required
+            minlength="10"
+            oninvalid="this.setCustomValidity('Message must contain at least 10 characters')"
+            oninput="this.setCustomValidity('')"></textarea>
+        </div>
+
+        <button
+        type="submit"
+        class="btn primary-btn"
+        style="width:100%;">
+          Submit Inquiry
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+FOOTER
+========================================================= -->
+
+<footer>
+
+  <div class="container footer-wrapper">
+
+    <div>
+      <div class="logo">BUNK</div>
+
+      <p class="footer-desc">
+        Premium youth cafe experience built for unforgettable cravings, urban culture, and modern business growth.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="#">Home</a>
+      <a href="#">Menu</a>
+      <a href="#">Gallery</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <div class="footer-links">
+      <h4>Connect</h4>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">WhatsApp</a>
+    </div>
+
+  </div>
+
+  <div class="copyright">
+    © 2026 BUNK Cafe. All Rights Reserved.
+  </div>
+
+</footer>
+
+<script>
+
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.querySelector('.nav-links');
+
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('active');
+  navLinks.classList.toggle('active');
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    menuBtn.classList.remove('active');
+    navLinks.classList.remove('active');
+  });
+});
+
+const franchiseForm = document.getElementById("franchiseForm");
+
+franchiseForm.addEventListener("submit", function(){
+
+  alert("Inquiry submitted successfully!");
+
+  setTimeout(() => {
+    franchiseForm.reset();
+  }, 500);
+
+});
+
+
+const nameInput = document.querySelector('input[name="name"]');
+const phoneInput = document.querySelector('input[name="phone"]');
+
+nameInput.addEventListener("input", () => {
+
+  if(/[^a-zA-Z\s]/.test(nameInput.value)){
+    alert("Only letters are allowed in Full Name");
+    nameInput.value = nameInput.value.replace(/[^a-zA-Z\s]/g, '');
+  }
+
+});
+
+phoneInput.addEventListener("input", () => {
+
+  if(/[^0-9]/.test(phoneInput.value)){
+    alert("Only numbers are allowed in Phone Number");
+    phoneInput.value = phoneInput.value.replace(/[^0-9]/g, '');
+  }
+
+  if(phoneInput.value.length > 10){
+    alert("Phone number cannot exceed 10 digits");
+    phoneInput.value = phoneInput.value.slice(0,10);
+  }
+
+});
+
+
+function updateCartBadge(){
+
+  const badge =
+  document.getElementById("cartBadge");
+
+  let cart =
+  JSON.parse(localStorage.getItem("bunkCart")) || [];
+
+  if(cart.length > 0){
+
+    badge.style.display = "flex";
+    badge.innerText = cart.length;
+
+  }
+
+  else{
+
+    badge.style.display = "none";
+
+  }
+
+}
+
+updateCartBadge();
+
+</script>
+
+</body>
+</html>

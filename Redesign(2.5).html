@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+<title>BUNK Cafe Contact</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior:smooth;
+}
+
+:root{
+  --bg:#060606;
+  --surface:#111111;
+  --accent:#ff9d00;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,0.62);
+  --border:rgba(255,255,255,0.08);
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:
+  radial-gradient(circle at top left, rgba(255,157,0,0.08), transparent 20%),
+  radial-gradient(circle at bottom right, rgba(255,157,0,0.05), transparent 25%),
+  var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+img{
+  width:100%;
+  display:block;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.container{
+  width:90%;
+  max-width:1300px;
+  margin:auto;
+}
+
+/* =========================================================
+NAVBAR
+========================================================= */
+
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:999;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.nav-wrapper{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 0;
+}
+
+.logo{
+  font-size:2rem;
+  font-weight:800;
+  letter-spacing:6px;
+  color:var(--accent);
+}
+
+.nav-links{
+  display:flex;
+  gap:35px;
+}
+
+.nav-links a{
+  color:rgba(255,255,255,0.68);
+  transition:0.3s;
+}
+
+.nav-links a:hover,
+.nav-links .active{
+  color:var(--accent);
+}
+
+.order-btn{
+  position:relative;
+  padding:14px 24px;
+  border:none;
+  border-radius:50px;
+  background:var(--accent);
+  color:black;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+  font-family:inherit;
+}
+
+.order-btn:hover{
+  transform:translateY(-3px);
+}
+
+.menu-toggle{
+  display:none;
+  flex-direction:column;
+  gap:6px;
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  z-index:1001;
+}
+
+.menu-toggle span{
+  width:26px;
+  height:2px;
+  background:white;
+  transition:0.3s;
+}
+
+/* =========================================================
+HERO
+========================================================= */
+
+.hero{
+  position:relative;
+  min-height:auto;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  padding:140px 0 70px;
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+}
+
+.hero-bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(0.25);
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:
+  linear-gradient(to bottom, rgba(0,0,0,0.45), #060606);
+}
+
+.hero-content{
+  position:relative;
+  z-index:5;
+  max-width:850px;
+}
+
+.hero-tag{
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:50px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.05);
+  color:var(--accent);
+  letter-spacing:4px;
+  font-size:0.78rem;
+  margin-bottom:28px;
+}
+
+.hero-content h1{
+  font-size:6.5rem;
+  line-height:0.9;
+  letter-spacing:-5px;
+  margin-bottom:25px;
+}
+
+.hero-content h1 span{
+  color:var(--accent);
+}
+
+.hero-content p{
+  max-width:650px;
+  color:var(--muted);
+  line-height:1.9;
+  font-size:1.05rem;
+}
+
+/* =========================================================
+SECTION TITLE
+========================================================= */
+
+section{
+  padding:90px 0;
+}
+
+.section-title{
+  margin-bottom:50px;
+}
+
+.section-title small{
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:4px;
+  display:block;
+  margin-bottom:10px;
+}
+
+.section-title h2{
+  font-size:4rem;
+  line-height:0.95;
+  letter-spacing:-3px;
+}
+
+/* =========================================================
+CONTACT SECTION
+========================================================= */
+
+.contact-wrapper{
+  display:grid;
+  grid-template-columns:0.9fr 1.1fr;
+  gap:50px;
+  align-items:start;
+}
+
+.contact-info{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+.info-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:28px;
+  padding:28px;
+  transition:0.4s;
+}
+
+.info-card:hover{
+  transform:translateY(-6px);
+}
+
+.info-card small{
+  color:var(--accent);
+  letter-spacing:3px;
+  display:block;
+  margin-bottom:10px;
+}
+
+.info-card h3{
+  margin-bottom:12px;
+}
+
+.info-card p,
+.info-card a{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+/* =========================================================
+FORM
+========================================================= */
+
+.contact-form{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:35px;
+  padding:40px;
+  backdrop-filter:blur(18px);
+}
+
+.contact-form h3{
+  font-size:2rem;
+  margin-bottom:12px;
+}
+
+.contact-form p{
+  color:var(--muted);
+  margin-bottom:30px;
+}
+
+.input-group{
+  margin-bottom:20px;
+}
+
+.input-group input,
+.input-group textarea{
+  width:100%;
+  padding:18px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.04);
+  color:white;
+  outline:none;
+  font-family:inherit;
+}
+
+.input-group textarea{
+  height:150px;
+  resize:none;
+}
+
+.input-group input:focus,
+.input-group textarea:focus{
+  border-color:rgba(255,157,0,0.35);
+}
+
+.submit-btn{
+  width:100%;
+  padding:18px;
+  border:none;
+  border-radius:18px;
+  background:var(--accent);
+  color:black;
+  font-weight:700;
+  cursor:pointer;
+  font-family:inherit;
+  transition:0.3s;
+}
+
+.submit-btn:hover{
+  transform:translateY(-3px);
+}
+
+/* =========================================================
+MAP
+========================================================= */
+
+.map-frame{
+  width:100%;
+  height:450px;
+  border:none;
+  border-radius:35px;
+  box-shadow:0 25px 50px rgba(0,0,0,0.35);
+}
+
+/* =========================================================
+QUICK ACTIONS
+========================================================= */
+
+.quick-actions{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
+
+.action-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:30px;
+  padding:35px;
+  text-align:center;
+  transition:0.4s;
+}
+
+.action-card:hover{
+  transform:translateY(-8px);
+}
+
+.action-icon{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:rgba(255,157,0,0.12);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  margin-bottom:20px;
+  font-size:1.5rem;
+  color:var(--accent);
+}
+
+.action-card h3{
+  margin-bottom:12px;
+}
+
+.action-card p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:20px;
+}
+
+.action-btn{
+  padding:14px 22px;
+  border-radius:50px;
+  background:var(--accent);
+  color:black;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+footer{
+  padding:70px 0 30px;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+
+.footer-wrapper{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:50px;
+}
+
+.footer-desc{
+  color:var(--muted);
+  line-height:1.8;
+  max-width:420px;
+  margin-top:15px;
+}
+
+.footer-links{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.footer-links h4{
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.footer-links a{
+  color:rgba(255,255,255,0.65);
+}
+
+.copyright{
+  margin-top:45px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  text-align:center;
+  color:rgba(255,255,255,0.45);
+  font-size:0.85rem;
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+  .contact-wrapper{
+    grid-template-columns:1fr;
+  }
+
+  .quick-actions{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .menu-toggle{
+    display:flex;
+  }
+
+  .nav-links{
+    position:fixed;
+    top:0;
+    right:-100%;
+    width:75%;
+    max-width:320px;
+    height:100vh;
+    background:#0b0b0b;
+    flex-direction:column;
+    padding:120px 40px;
+    gap:30px;
+    transition:right 0.4s cubic-bezier(0.16,1,0.3,1);
+    border-left:1px solid rgba(255,255,255,0.08);
+    box-shadow:-10px 0 30px rgba(0,0,0,0.6);
+  }
+
+  .nav-links.active{
+    right:0;
+  }
+
+  .menu-toggle.active span:nth-child(1){
+    transform:translateY(8px) rotate(45deg);
+  }
+
+  .menu-toggle.active span:nth-child(2){
+    opacity:0;
+  }
+
+  .menu-toggle.active span:nth-child(3){
+    transform:translateY(-8px) rotate(-45deg);
+  }
+
+  .hero-content h1{
+    font-size:4rem;
+    letter-spacing:-2px;
+  }
+
+  .section-title h2{
+    font-size:2.8rem;
+    letter-spacing:-2px;
+  }
+
+  .contact-form{
+    padding:28px;
+  }
+
+  .footer-wrapper{
+    grid-template-columns:1fr;
+    gap:35px;
+  }
+
+}
+
+/* =========================================================
+SUCCESS POPUP
+========================================================= */
+
+.success-popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:5000;
+  opacity:0;
+  visibility:hidden;
+  transition:0.4s;
+}
+
+.success-popup.active{
+  opacity:1;
+  visibility:visible;
+}
+
+.popup-box{
+  width:90%;
+  max-width:420px;
+  background:#111;
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:30px;
+  padding:40px 30px;
+  text-align:center;
+  transform:translateY(30px);
+  transition:0.4s;
+}
+
+.success-popup.active .popup-box{
+  transform:translateY(0);
+}
+
+.check-icon{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:rgba(255,157,0,0.12);
+  color:var(--accent);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2rem;
+  margin:auto;
+  margin-bottom:22px;
+}
+
+.popup-box h3{
+  margin-bottom:12px;
+  font-size:1.8rem;
+}
+
+.popup-box p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.cart-badge{
+  position:absolute;
+  top:-8px;
+  right:-8px;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:#ff3b3b;
+  color:white;
+  font-size:0.72rem;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid #060606;
+  display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+NAVBAR
+========================================================= -->
+
+<nav>
+
+  <div class="container nav-wrapper">
+
+    <div class="logo">BUNK</div>
+
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="Redesign(2.2).html">Menu</a>
+      <a href="Redesign(2.3).html">Franchise</a>
+      <a href="Redesign(2.4).html">Gallery</a>
+      <a href="Redesign(2.5).html" class="active">Contact</a>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:15px;">
+
+      <button class="order-btn" onclick="window.location.href='Redesign(2.0).html'">
+        Order Now<span class="cart-badge" id="cartBadge">0</span>
+      </button>
+
+      <button class="menu-toggle" id="menuBtn" aria-label="Toggle Navigation Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+
+  </div>
+
+</nav>
+
+<!-- =========================================================
+HERO
+========================================================= -->
+
+<section class="hero">
+
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2000&auto=format&fit=crop">
+    <div class="overlay"></div>
+  </div>
+
+  <div class="container hero-content">
+
+    <div class="hero-tag">
+      LET'S CONNECT
+    </div>
+
+    <h1>
+      TALK TO<br>
+      <span>BUNK.</span>
+    </h1>
+
+    <p>
+      Whether it’s food cravings, franchise opportunities,
+      collaborations, or cafe experiences — we’d love to hear from you.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+CONTACT
+========================================================= -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <small>Get In Touch</small>
+      <h2>Let's Start<br>A Conversation</h2>
+    </div>
+
+    <div class="contact-wrapper">
+
+      <!-- INFO -->
+      <div class="contact-info">
+
+        <div class="info-card">
+          <small>PHONE</small>
+          <h3>Call Us</h3>
+          <p>+91 98765 43210</p>
+        </div>
+
+        <div class="info-card">
+          <small>EMAIL</small>
+          <h3>Email Address</h3>
+          <p>hello@bunkcafe.com</p>
+        </div>
+
+        <div class="info-card">
+          <small>ADDRESS</small>
+          <h3>Visit BUNK</h3>
+          <p>
+            21 Urban Street,<br>
+            Bhopal, Madhya Pradesh,<br>
+            India
+          </p>
+        </div>
+
+        <div class="info-card">
+          <small>OPENING HOURS</small>
+          <h3>Everyday</h3>
+          <p>11:00 AM — 2:00 AM</p>
+        </div>
+
+      </div>
+
+      <!-- FORM -->
+      <form class="contact-form" action="https://formsubmit.co/kytronweblabs@gmail.com" method="POST">
+
+        <h3>Send A Message</h3>
+
+        <p>
+          Fill out the form and our team will get back to you shortly.
+        </p>
+
+        <div class="input-group">
+          <input type="text" name="name" placeholder="Your Name" required pattern="[A-Za-z ]{3,40}" title="Name should contain only letters and spaces">
+        </div>
+
+        <div class="input-group">
+          <input type="email" name="email" placeholder="Email Address" required>
+        </div>
+
+        <div class="input-group">
+          <textarea name="message" placeholder="Write Your Message" required minlength="8" maxlength="500"></textarea>
+        </div>
+        
+        <input type="hidden" name="_captcha" value="false">
+
+        <input type="hidden" name="_subject" value="New BUNK Cafe Contact Form Submission">
+
+        <input type="hidden" name="_template" value="table">
+        
+        <input type="hidden" name="_next" value="">
+
+        <button class="submit-btn">
+          Send Message
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+MAP
+========================================================= -->
+
+<section id="map">
+
+  <div class="container">
+
+    <iframe
+      class="map-frame"
+      src="https://www.google.com/maps?q=Bhopal&output=embed">
+    </iframe>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+QUICK ACTIONS
+========================================================= -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <small>Quick Connect</small>
+      <h2>Reach BUNK<br>Instantly</h2>
+    </div>
+
+    <div class="quick-actions">
+
+      <div class="action-card">
+
+        <div class="action-icon">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+
+        <h3>Call Now</h3>
+
+        <p>
+          Speak directly with our support and cafe team.
+        </p>
+
+        <button class="action-btn">
+          Call BUNK
+        </button>
+
+      </div>
+
+      <div class="action-card">
+
+        <div class="action-icon">
+          <i class="fa-brands fa-whatsapp"></i>
+        </div>
+
+        <h3>WhatsApp</h3>
+
+        <p>
+          Chat with us instantly for quick responses and updates.
+        </p>
+
+        <button class="action-btn">
+          Open Chat
+        </button>
+
+      </div>
+
+      <div class="action-card">
+
+        <div class="action-icon">
+          <i class="fa-brands fa-instagram"></i>
+        </div>
+
+        <h3>Instagram</h3>
+
+        <p>
+          Follow BUNK for aesthetic cafe content and latest drops.
+        </p>
+
+        <button class="action-btn">
+          Visit Profile
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<div class="success-popup" id="successPopup">
+
+  <div class="popup-box">
+
+    <div class="check-icon">✓</div>
+
+    <h3>Message Sent Successfully</h3>
+
+    <p>
+      Thank you for contacting BUNK Cafe.
+      We’ll get back to you shortly.
+    </p>
+
+  </div>
+
+</div>
+
+<!-- =========================================================
+FOOTER
+========================================================= -->
+
+<footer>
+
+  <div class="container footer-wrapper">
+
+    <div>
+
+      <div class="logo">BUNK</div>
+
+      <p class="footer-desc">
+        Premium youth cafe experience built for unforgettable cravings,
+        aesthetic vibes, and modern urban culture.
+      </p>
+
+    </div>
+
+    <div class="footer-links">
+
+      <h4>Quick Links</h4>
+
+      <a href="#">Home</a>
+      <a href="#">Menu</a>
+      <a href="#">Franchise</a>
+      <a href="#">Gallery</a>
+
+    </div>
+
+    <div class="footer-links">
+
+      <h4>Socials</h4>
+
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">WhatsApp</a>
+
+    </div>
+
+  </div>
+
+  <div class="copyright">
+    © 2026 BUNK Cafe. All Rights Reserved.
+  </div>
+
+</footer>
+
+<script>
+
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('active');
+  navLinks.classList.toggle('active');
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    menuBtn.classList.remove('active');
+    navLinks.classList.remove('active');
+  });
+});
+
+
+const form = document.querySelector('.contact-form');
+const popup = document.getElementById('successPopup');
+
+form.addEventListener('submit', async function(e){
+
+  e.preventDefault();
+
+  const formData = new FormData(form);
+
+  await fetch(form.action, {
+    method: "POST",
+    body: formData
+  });
+
+  popup.classList.add('active');
+
+  form.reset();
+
+  setTimeout(() => {
+    popup.classList.remove('active');
+    window.location.reload();
+  }, 3000);
+
+});
+
+
+function updateCartBadge(){
+
+  const badge =
+  document.getElementById("cartBadge");
+
+  let cart =
+  JSON.parse(localStorage.getItem("bunkCart")) || [];
+
+  if(cart.length > 0){
+
+    badge.style.display = "flex";
+    badge.innerText = cart.length;
+
+  }
+
+  else{
+
+    badge.style.display = "none";
+
+  }
+
+}
+
+updateCartBadge();
+
+</script>
+
+</body>
+</html>
