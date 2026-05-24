@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BUNK Premium Checkout</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root{
+  --bg:#060606;
+  --surface:#101010;
+  --accent:#ff9d00;
+  --muted:rgba(255,255,255,0.62);
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:
+  radial-gradient(circle at top left, rgba(255,157,0,0.08), transparent 20%),
+  radial-gradient(circle at bottom right, rgba(255,157,0,0.05), transparent 25%),
+  var(--bg);
+  color:white;
+}
+
+.container{
+  width:90%;
+  max-width:1400px;
+  margin:auto;
+}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.nav-wrapper{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:22px 0;
+}
+
+.logo{
+  font-size:2rem;
+  font-weight:800;
+  letter-spacing:6px;
+  color:var(--accent);
+}
+
+.back-btn{
+  padding:14px 22px;
+  border:none;
+  border-radius:50px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  color:white;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.back-btn:hover{
+  background:rgba(255,157,0,0.12);
+  color:#ff9d00;
+  transform:translateX(-4px);
+}
+
+.hero{
+  padding:80px 0 50px;
+}
+
+.hero h1{
+  font-size:4.5rem;
+  line-height:0.9;
+  margin-bottom:18px;
+  letter-spacing:-3px;
+}
+
+.hero h1 span{
+  color:var(--accent);
+}
+
+.hero p{
+  color:var(--muted);
+  max-width:650px;
+  line-height:1.9;
+}
+
+.checkout-layout{
+  display:grid;
+  grid-template-columns:1fr 0.9fr;
+  gap:35px;
+  padding-bottom:80px;
+}
+
+.checkout-card,
+.summary-box{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:35px;
+  padding:35px;
+}
+
+.checkout-card h2,
+.summary-box h2{
+  margin-bottom:25px;
+  font-size:2rem;
+}
+
+.input-group{
+  margin-bottom:22px;
+}
+
+.input-group label{
+  display:block;
+  margin-bottom:10px;
+  color:rgba(255,255,255,0.8);
+}
+
+.input-group input,
+.input-group textarea{
+  width:100%;
+  padding:18px;
+  border:none;
+  outline:none;
+  border-radius:18px;
+  background:rgba(255,255,255,0.05);
+  color:white;
+  font-size:1rem;
+}
+
+.input-group textarea{
+  resize:none;
+  min-height:130px;
+}
+
+.order-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(255,255,255,0.04);
+  padding:18px;
+  border-radius:18px;
+  margin-bottom:16px;
+}
+
+.order-item p{
+  color:var(--accent);
+  font-weight:700;
+}
+
+.bill-box{
+  margin-top:25px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding-top:25px;
+}
+
+.bill-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:15px;
+  color:var(--muted);
+}
+
+.total-row{
+  margin-top:18px;
+  padding-top:18px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  font-size:1.5rem;
+  color:white;
+  font-weight:700;
+}
+
+.payment-options{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  margin-top:18px;
+}
+
+.payment-box{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  padding:20px;
+  border-radius:18px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.payment-box:hover{
+  border-color:#ff9d00;
+}
+
+.payment-box input{
+  margin-right:10px;
+}
+
+.confirm-btn{
+  width:100%;
+  padding:18px;
+  margin-top:30px;
+  border:none;
+  border-radius:18px;
+  background:var(--accent);
+  color:black;
+  font-size:1rem;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.72);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  visibility:hidden;
+  transition:0.4s;
+  z-index:9999;
+  padding:20px;
+}
+
+.popup.active{
+  opacity:1;
+  visibility:visible;
+}
+
+.popup-box{
+  width:100%;
+  max-height:90vh;
+  overflow-y:auto;
+  max-width:520px;
+  background:#111;
+  border-radius:35px;
+  padding:35px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.success-icon{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:var(--accent);
+  color:black;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2.5rem;
+  font-weight:700;
+  margin:auto;
+  margin-bottom:25px;
+}
+
+.popup-box h2{
+  text-align:center;
+  margin-bottom:12px;
+}
+
+.success-text{
+  text-align:center;
+  color:var(--muted);
+  line-height:1.8;
+  margin-bottom:30px;
+}
+
+.info-box,
+.products-box,
+.customer-box,
+.popup-bill-box{
+  background:rgba(255,255,255,0.04);
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:20px;
+}
+
+.info-row,
+.product-row,
+.popup-bill-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+
+.info-row:last-child,
+.product-row:last-child,
+.popup-bill-row:last-child{
+  margin-bottom:0;
+}
+
+.products-box h3,
+.customer-box h3{
+  margin-bottom:15px;
+  color:var(--accent);
+}
+
+.customer-box p{
+  color:rgba(255,255,255,0.75);
+  line-height:1.8;
+}
+
+.popup-total{
+  margin-top:15px;
+  padding-top:15px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  font-size:1.2rem;
+  color:var(--accent);
+  font-weight:700;
+}
+
+.popup-buttons{
+  display:flex;
+  gap:15px;
+  margin-top:28px;
+}
+
+.download-btn,
+.home-btn{
+  flex:1;
+  padding:16px;
+  border:none;
+  border-radius:16px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.download-btn{
+  background:rgba(255,255,255,0.08);
+  color:white;
+}
+
+.home-btn{
+  background:var(--accent);
+  color:black;
+}
+
+@media(max-width:950px){
+
+  .checkout-layout{
+    grid-template-columns:1fr;
+  }
+
+  .hero h1{
+    font-size:3rem;
+  }
+
+  .popup-buttons{
+    flex-direction:column;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+  <div class="container nav-wrapper">
+
+    <div class="logo">BUNK</div>
+
+    <button class="back-btn" onclick="history.back()">
+      ← Back
+    </button>
+
+  </div>
+
+</nav>
+
+<section class="hero">
+
+  <div class="container">
+
+    <h1>
+      COMPLETE YOUR<br>
+      <span>ORDER.</span>
+    </h1>
+
+    <p>
+      Fill your delivery details and confirm your premium BUNK cafe order.
+    </p>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container checkout-layout">
+
+    <div class="checkout-card">
+
+      <h2>Delivery Details</h2>
+
+      <div class="input-group">
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="Enter your full name">
+      </div>
+
+      <div class="input-group">
+        <label>Phone Number</label>
+        <input type="tel" id="phone" placeholder="Enter your phone number">
+      </div>
+
+      <div class="input-group">
+        <label>Delivery Address</label>
+        <textarea id="address" placeholder="Enter complete address"></textarea>
+      </div>
+      
+      <h2 style="margin-top:40px;">Payment Method</h2>
+
+      <div class="payment-options">
+
+        <label class="payment-box">
+          <input type="radio"
+          name="payment"
+          value="Cash On Delivery"
+          checked>
+          Cash On Delivery
+        </label>
+
+        <label class="payment-box">
+          <input type="radio"
+          name="payment"
+          value="UPI Payment">
+          UPI Payment
+        </label>
+
+        <label class="payment-box">
+          <input type="radio"
+          name="payment"
+          value="Credit / Debit Card">
+          Credit / Debit Card
+        </label>
+
+      </div>
+
+    </div>
+
+    <div class="summary-box">
+
+      <h2>Order Summary</h2>
+
+      <div id="orderItems"></div>
+
+      <div class="bill-box">
+
+        <div class="bill-row">
+          <span>Subtotal</span>
+          <span>₹<span id="subtotal">0</span></span>
+        </div>
+
+        <div class="bill-row">
+          <span>Delivery Fee</span>
+          <span>₹<span id="delivery">0</span></span>
+        </div>
+
+        <div class="bill-row">
+          <span>Taxes</span>
+          <span>₹<span id="taxes">0</span></span>
+        </div>
+        
+        <div class="bill-row">
+          <span>Discount</span>
+          <span>- ₹<span id="discount">0</span></span>
+        </div>
+
+        <div class="bill-row total-row">
+          <span>Total</span>
+          <span>₹<span id="finalTotal">0</span></span>
+        </div>
+
+      </div>
+
+      <button class="confirm-btn" onclick="placeOrder()">
+        Confirm Order
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<div class="popup" id="popup">
+
+  <div class="popup-box">
+
+    <div class="success-icon">
+      ✓
+    </div>
+
+    <h2>Order Confirmed 🎉</h2>
+
+    <p class="success-text">
+      Your order has been successfully placed and is now being prepared by BUNK Cafe.
+    </p>
+
+    <div class="info-box">
+
+      <div class="info-row">
+        <span>Customer ID</span>
+        <strong id="customerId"></strong>
+      </div>
+
+      <div class="info-row">
+        <span>Estimated Delivery</span>
+        <strong>25-30 mins</strong>
+      </div>
+      
+      <div class="info-row">
+        <span>Payment Method</span>
+        <strong id="popupPayment"></strong>
+      </div>
+
+    </div>
+
+    <div class="products-box">
+
+      <h3>Your Items</h3>
+
+      <div id="popupProducts"></div>
+
+    </div>
+
+    <div class="customer-box">
+
+      <h3>Delivery Details</h3>
+
+      <p id="popupCustomer"></p>
+
+    </div>
+
+    <div class="popup-bill-box">
+      
+      <div class="popup-bill-row">
+        <span>Discount Applied</span>
+        <strong id="popupDiscount"></strong>
+      </div>      
+
+      <div class="popup-bill-row">
+        <span>Total Amount</span>
+        <strong id="popupTotal"></strong>
+      </div>
+
+    </div>
+
+    <div class="popup-buttons">
+      <button class="download-btn" onclick="downloadReceipt()">
+        Download Receipt
+      </button>
+
+      <button class="home-btn" onclick="goHome()">
+        Back To Home
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const cart =
+JSON.parse(localStorage.getItem('bunkCart')) || [];
+
+const orderItems =
+document.getElementById('orderItems');
+
+let subtotal = 0;
+
+cart.forEach(item=>{
+
+  subtotal += item.price;
+
+  orderItems.innerHTML += `
+
+    <div class="order-item">
+      <h4>${item.name}</h4>
+      <p>₹${item.price}</p>
+    </div>
+
+  `;
+
+});
+
+let delivery = 0;
+let taxes = 0;
+
+let discount =
+Number(localStorage.getItem('bunkDiscount')) || 0;
+
+if(subtotal > 0){
+  delivery = 49;
+  taxes = 29;
+}
+
+const finalTotal =
+subtotal + delivery + taxes - discount;
+
+document.getElementById('subtotal').innerText = subtotal;
+document.getElementById('delivery').innerText = delivery;
+document.getElementById('taxes').innerText = taxes;
+document.getElementById('discount'
+  ).innerText = discount;
+document.getElementById('finalTotal').innerText = finalTotal;
+
+function placeOrder(){
+
+  const name =
+  document.getElementById('name').value;
+
+  const phone =
+  document.getElementById('phone').value;
+
+  const address =
+  document.getElementById('address').value;
+  
+  const paymentMethod =
+  document.querySelector(
+  'input[name="payment"]:checked').value;
+
+  if(cart.length === 0){
+    alert('Cart is empty.');
+    return;
+  }
+
+  if(!name || !phone || !address){
+    alert('Please fill all details.');
+    return;
+  }
+
+  const customerId =
+  'BUNK' + Math.floor(Math.random()*90000 + 10000);
+
+  document.getElementById('customerId').innerText = customerId;
+
+  const popupProducts =
+  document.getElementById('popupProducts');
+
+  popupProducts.innerHTML = '';
+
+  cart.forEach(item=>{
+
+    popupProducts.innerHTML += `
+
+      <div class="product-row">
+        <span>${item.name}</span>
+        <strong>₹${item.price}</strong>
+      </div>
+
+    `;
+
+  });
+
+  document.getElementById('popupCustomer').innerHTML = `
+
+    <strong>${name}</strong><br><br>
+
+    ${address}<br><br>
+
+    +91 ${phone}
+
+  `;
+  
+  document.getElementById('popupPayment')
+  .innerText = paymentMethod;
+  
+  document.getElementById('popupDiscount').innerText = '- ₹' + discount;
+
+  document.getElementById('popupTotal').innerText =
+  '₹' + finalTotal;
+
+  document.getElementById('popup')
+  .classList.add('active');
+
+}
+
+function downloadReceipt(){
+
+  const paymentMethod =
+  document.querySelector(
+  'input[name="payment"]:checked'
+  ).value;
+
+  const customerId =
+  document.getElementById('customerId')
+  .innerText;
+
+  const name =
+  document.getElementById('name').value;
+
+  const phone =
+  document.getElementById('phone').value;
+
+  const address =
+  document.getElementById('address').value;
+
+  const today = new Date();
+
+  const orderDate =
+  today.toDateString();
+
+  const receipt = `
+
+BUNK CAFE
+Midnight Cravings & Premium Vibes
+
+Receipt ID : ${customerId}
+Order Date : ${orderDate}
+Payment Method : ${paymentMethod}
+Delivery ETA : 25-30 mins
+
+━━━━━━━━━━━━━━━━━━
+CUSTOMER
+━━━━━━━━━━━━━━━━━━
+
+${name}
++91 ${phone}
+
+${address}
+
+━━━━━━━━━━━━━━━━━━
+ITEMS
+━━━━━━━━━━━━━━━━━━
+
+${cart.map(item =>
+`${item.name} - ₹${item.price}`
+).join('\n')}
+
+━━━━━━━━━━━━━━━━━━
+
+Subtotal : ₹${subtotal}
+Delivery : ₹${delivery}
+Taxes : ₹${taxes}
+Discount : -₹${discount}
+
+TOTAL : ₹${finalTotal}
+
+━━━━━━━━━━━━━━━━━━
+
+Thank you for ordering with BUNK Cafe ❤️
+
+support@bunkcafe.com
+www.bunkcafe.com
+
+`;
+
+  const blob = new Blob(
+    [receipt],
+    { type:'text/plain' }
+  );
+
+  const link =
+  document.createElement('a');
+
+  link.href =
+  URL.createObjectURL(blob);
+
+  link.download =
+  'BUNK-Receipt.txt';
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  document.body.removeChild(link);
+
+}
+
+function goHome(){
+
+  localStorage.removeItem('bunkCart');
+
+  window.location.href = 'index.html';
+
+}
+
+</script>
+
+</body>
+</html>
